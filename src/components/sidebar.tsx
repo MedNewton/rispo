@@ -14,11 +14,11 @@ export default function Sidebar() {
         <h1 className="text-lg tracking-[0.2em] font-semibold uppercase">Giordano Rispoli</h1>
 
         <nav className="mt-8 space-y-3">
-          <Link className="block text-sm text-neutral-700 hover:text-black capitalize" href="/advertising">advertising</Link>
-          <Link className="block text-sm text-neutral-700 hover:text-black capitalize" href="/portraits">portraits</Link>
-          <Link className="block text-sm text-neutral-700 hover:text-black capitalize" href="/fine-art">fine art</Link>
-          <Link className="block text-sm text-neutral-700 hover:text-black capitalize" href="/exhibitions">exhibitions</Link>
-          <Link className="block text-sm text-neutral-700 hover:text-black capitalize" href="/contacts">contacts</Link>
+          <Link className="block text-sm text-neutral-700 hover:text-black lowercase" href="/advertising">advertising</Link>
+          <Link className="block text-sm text-neutral-700 hover:text-black lowercase" href="/portraits">portraits</Link>
+          <Link className="block text-sm text-neutral-700 hover:text-black lowercase" href="/fine-art">fine art</Link>
+          <Link className="block text-sm text-neutral-700 hover:text-black lowercase" href="/exhibitions">exhibitions</Link>
+          <Link className="block text-sm text-neutral-700 hover:text-black lowercase" href="/contacts">contacts</Link>
         </nav>
 
         <div className="flex flex-row items-center gap-2">
