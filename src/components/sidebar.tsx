@@ -9,7 +9,7 @@ export default function Sidebar() {
   const year = new Date().getFullYear();
 
   return (
-    <aside className="h-[100dvh] w-[320px] shrink-0 border-r border-neutral-200 px-6 py-7 hidden lg:flex flex-col justify-between overflow-hidden">
+    <aside className="h-[100dvh] w-[320px] shrink-0 px-6 py-7 hidden lg:flex flex-col justify-between overflow-hidden">
       <div className="flex flex-col gap-20">
         <h1 className="text-lg tracking-[0.2em] font-semibold uppercase">Giordano Rispoli</h1>
 
