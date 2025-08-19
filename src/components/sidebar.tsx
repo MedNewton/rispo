@@ -34,10 +34,16 @@ export default function Sidebar() {
             category 3
           </Link>
           <Link
+            href="/about"
+            className="block text-sm text-white hover:text-neutral-400 capitalize transition-colors"
+          >
+            about
+          </Link>
+          <Link
             href="/contacts"
             className="block text-sm text-white hover:text-neutral-400 capitalize transition-colors"
           >
-            contacts
+            contact
           </Link>
         </nav>
         <div className="flex flex-row items-center gap-2">

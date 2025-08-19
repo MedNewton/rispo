@@ -12,7 +12,8 @@ const NAV: NavItem[] = [
   { label: "Category 1", href: "/category1" },
   { label: "Category 2", href: "/category2" },
   { label: "Category 3", href: "/category3" },
-  { label: "Contacts", href: "/contacts" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function MobileHeader() {
