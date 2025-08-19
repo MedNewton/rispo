@@ -14,23 +14,53 @@ export default function Sidebar() {
         <Link href="/">
           <h1 className="text-lg tracking-[0.2em] font-semibold uppercase">Giordano Rispo</h1>
         </Link>
-
         <nav className="mt-8 space-y-3">
-          <Link className="block text-sm text-neutral-700 hover:text-black lowercase" href="/category1">category 1</Link>
-          <Link className="block text-sm text-neutral-700 hover:text-black lowercase" href="/category2">category 2</Link>
-          <Link className="block text-sm text-neutral-700 hover:text-black lowercase" href="/category3">category 3</Link>
-          <Link className="block text-sm text-neutral-700 hover:text-black lowercase" href="/contacts">contacts</Link>
+          <Link
+            href="/category1"
+            className="block text-sm text-white hover:text-neutral-400 capitalize transition-colors"
+          >
+            category 1
+          </Link>
+          <Link
+            href="/category2"
+            className="block text-sm text-white hover:text-neutral-400 capitalize transition-colors"
+          >
+            category 2
+          </Link>
+          <Link
+            href="/category3"
+            className="block text-sm text-white hover:text-neutral-400 capitalize transition-colors"
+          >
+            category 3
+          </Link>
+          <Link
+            href="/contacts"
+            className="block text-sm text-white hover:text-neutral-400 capitalize transition-colors"
+          >
+            contacts
+          </Link>
         </nav>
-
         <div className="flex flex-row items-center gap-2">
-          <Link href="https://www.instagram.com/giordanonadroig" target="_blank" className="text-neutral-700 hover:text-black">
-            <FaInstagram size={22} color="#fff" />
+          <Link
+            href="https://www.instagram.com/giordanonadroig"
+            target="_blank"
+            className="text-white hover:text-neutral-400 transition-colors"
+          >
+            <FaInstagram size={22} />
           </Link>
-          <Link href="https://www.linkedin.com/in/giordano-rispo-0103a1226/" target="_blank" className="text-neutral-700 hover:text-black">
-            <FaLinkedin size={22} color="#fff" />
+          <Link
+            href="https://www.linkedin.com/in/giordano-rispo-0103a1226/"
+            target="_blank"
+            className="text-white hover:text-neutral-400 transition-colors"
+          >
+            <FaLinkedin size={22} />
           </Link>
-          <Link href="https://www.facebook.com/gio.rispo/" target="_blank" className="text-neutral-700 hover:text-black">
-            <FaFacebookSquare size={22} color="#fff" />
+          <Link
+            href="https://www.facebook.com/gio.rispo/"
+            target="_blank"
+            className="text-white hover:text-neutral-400 transition-colors"
+          >
+            <FaFacebookSquare size={22} />
           </Link>
         </div>
       </div>
