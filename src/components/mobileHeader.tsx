@@ -36,7 +36,7 @@ export default function MobileHeader() {
             href="/"
             className="text-lg sm:text-xl font-semibold tracking-[0.25em] leading-none truncate uppercase"
           >
-            Giordano Rispoli
+            Giordano Rispo
           </Link>
           <button
             type="button"

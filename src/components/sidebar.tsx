@@ -11,7 +11,9 @@ export default function Sidebar() {
   return (
     <aside className="h-[100dvh] w-[320px] shrink-0 px-6 py-7 hidden lg:flex flex-col justify-between overflow-hidden">
       <div className="flex flex-col gap-20">
-        <h1 className="text-lg tracking-[0.2em] font-semibold uppercase">Giordano Rispoli</h1>
+        <Link href="/">
+          <h1 className="text-lg tracking-[0.2em] font-semibold uppercase">Giordano Rispo</h1>
+        </Link>
 
         <nav className="mt-8 space-y-3">
           <Link className="block text-sm text-neutral-700 hover:text-black lowercase" href="/category1">category 1</Link>
@@ -32,7 +34,7 @@ export default function Sidebar() {
       <div className="text-xs text-neutral-500 font-light space-y-1">
         <p>All Rights Reserved</p>
         <p>Copyright © {year}</p>
-        <p>Giordano Rispoli</p>
+        <p>Giordano Rispo</p>
       </div>
     </aside>
   );
