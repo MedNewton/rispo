@@ -5,7 +5,6 @@ import Sidebar from "../components/sidebar";
 export default function HomePage() {
   return (
     <main className="noiseBackground">
-      {/* Mobile top bar (hidden on md+) */}
       <MobileHeader />
 
       {/* Fill the viewport: on mobile subtract header (4rem), on md+ use full height */}
