@@ -14,10 +14,9 @@ export default function Sidebar() {
         <h1 className="text-lg tracking-[0.2em] font-semibold uppercase">Giordano Rispoli</h1>
 
         <nav className="mt-8 space-y-3">
-          <Link className="block text-sm text-neutral-700 hover:text-black lowercase" href="/advertising">category 1</Link>
-          <Link className="block text-sm text-neutral-700 hover:text-black lowercase" href="/portraits">category 2</Link>
-          <Link className="block text-sm text-neutral-700 hover:text-black lowercase" href="/fine-art">category 3</Link>
-          <Link className="block text-sm text-neutral-700 hover:text-black lowercase" href="/exhibitions">category 4</Link>
+          <Link className="block text-sm text-neutral-700 hover:text-black lowercase" href="/category1">category 1</Link>
+          <Link className="block text-sm text-neutral-700 hover:text-black lowercase" href="/category2">category 2</Link>
+          <Link className="block text-sm text-neutral-700 hover:text-black lowercase" href="/category3">category 3</Link>
           <Link className="block text-sm text-neutral-700 hover:text-black lowercase" href="/contacts">contacts</Link>
         </nav>
 
@@ -33,7 +32,7 @@ export default function Sidebar() {
       <div className="text-xs text-neutral-500 font-light space-y-1">
         <p>All Rights Reserved</p>
         <p>Copyright © {year}</p>
-        <p>Mario Ermoli</p>
+        <p>Giordano Rispoli</p>
       </div>
     </aside>
   );
