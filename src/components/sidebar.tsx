@@ -1,7 +1,7 @@
 // components/Sidebar.tsx
 import Link from "next/link";
 import { FaInstagram } from "react-icons/fa6";
-import { FaLinkedin } from "react-icons/fa";
+import { FaLinkedin, FaFacebookSquare } from "react-icons/fa";
 
 
 
@@ -23,11 +23,14 @@ export default function Sidebar() {
         </nav>
 
         <div className="flex flex-row items-center gap-2">
-          <Link href="https://www.instagram.com/marioermoli/" target="_blank" className="text-neutral-700 hover:text-black">
-            <FaInstagram size={18} color="#fff" />
+          <Link href="https://www.instagram.com/giordanonadroig" target="_blank" className="text-neutral-700 hover:text-black">
+            <FaInstagram size={22} color="#fff" />
           </Link>
-          <Link href="https://www.linkedin.com/in/marioermoli/" target="_blank" className="text-neutral-700 hover:text-black">
-            <FaLinkedin size={18} color="#fff" />
+          <Link href="https://www.linkedin.com/in/giordano-rispo-0103a1226/" target="_blank" className="text-neutral-700 hover:text-black">
+            <FaLinkedin size={22} color="#fff" />
+          </Link>
+          <Link href="https://www.facebook.com/gio.rispo/" target="_blank" className="text-neutral-700 hover:text-black">
+            <FaFacebookSquare size={22} color="#fff" />
           </Link>
         </div>
       </div>
