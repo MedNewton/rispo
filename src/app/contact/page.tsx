@@ -1,10 +1,10 @@
 // app/page.tsx
 import MobileHeader from "../../components/mobileHeader";
 import Sidebar from "../../components/sidebar";
-import Page1Content from "../../components/page1Content";
+import ContactContent from "../../components/contactContent";
 
 
-export default function Category1() {
+export default function Contact() {
     return (
         <main className="noiseBackground">
             <MobileHeader />
@@ -13,7 +13,7 @@ export default function Category1() {
                     <Sidebar />
                 </div>
                 <section className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-hide px-4 sm:px-6 md:px-8 py-4 sm:py-6">
-                    <Page1Content />
+                    <ContactContent />
                 </section>
             </div>
         </main>

@@ -40,7 +40,7 @@ export default function Sidebar() {
             about
           </Link>
           <Link
-            href="/contacts"
+            href="/contact"
             className="block text-sm text-white hover:text-neutral-400 capitalize transition-colors"
           >
             contact
