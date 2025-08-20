@@ -61,35 +61,33 @@ const Artworks: Artwork[] = [
   { src: image20, alt: "Image 20", id: "20", name: "Image 20", description: "Artwork description", year: "2021", agency: "Agency 1", creativeDirector: "John Doe", accountDirector: "Jane Smith" },
 ];
 
-type MaybePromise<T> = T | Promise<T>;
-
 export default async function PortfolioItemPage({
-  params,
-}: {
-  params: MaybePromise<{ id: string }>;
-}) {
-  const { id } = await Promise.resolve(params);
-  const item = Artworks.find((a) => a.id === id);
-  if (!item) notFound();
-
-  return (
-    <main className="noiseBackground">
-      <MobileHeader />
-      <div className="flex w-[100vw] overflow-hidden h-[calc(100dvh-4rem)] md:h-[100dvh]">
-        <div className="hidden md:block">
-          <Sidebar />
-        </div>
-        <section className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-hide px-4 sm:px-6 md:px-8 py-4 sm:py-6 flex flex-col">
-          <PortfolioItemContent {...item} />
-          <div className="mt-12 md:hidden">
-            <MobileFooter />
+    params,
+  }: {
+    params: Promise<{ id: string }>;
+  }) {
+    const { id } = await params;
+    const item = Artworks.find((a) => a.id === id);
+    if (!item) notFound();
+  
+    return (
+      <main className="noiseBackground">
+        <MobileHeader />
+        <div className="flex w-[100vw] overflow-hidden h-[calc(100dvh-4rem)] md:h-[100dvh]">
+          <div className="hidden md:block">
+            <Sidebar />
           </div>
-        </section>
-      </div>
-    </main>
-  );
-}
-
-export function generateStaticParams() {
-  return Artworks.map((a) => ({ id: a.id }));
-}
+          <section className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-hide px-4 sm:px-6 md:px-8 py-4 sm:py-6 flex flex-col">
+            <PortfolioItemContent {...item} />
+            <div className="mt-12 md:hidden">
+              <MobileFooter />
+            </div>
+          </section>
+        </div>
+      </main>
+    );
+  }
+  
+  export function generateStaticParams() {
+    return Artworks.map((a) => ({ id: a.id }));
+  }
