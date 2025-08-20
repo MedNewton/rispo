@@ -1,21 +1,24 @@
-// app/page.tsx
-import MobileHeader from "../../components/mobileHeader";
-import Sidebar from "../../components/sidebar";
-import Page2Content from "../../components/page2Content";
-
+// app/category2/page.tsx
+import MobileHeader from "@/components/mobileHeader";
+import Sidebar from "@/components/sidebar";
+import Page2Content from "@/components/page2Content";
+import MobileFooter from "@/components/mobileFooter";
 
 export default function Category2() {
-    return (
-        <main className="noiseBackground">
-            <MobileHeader />
-            <div className="flex w-[100vw] overflow-hidden h-[calc(100dvh-4rem)] md:h-[100dvh]">
-                <div className="hidden md:block">
-                    <Sidebar />
-                </div>
-                <section className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-hide px-4 sm:px-6 md:px-8 py-4 sm:py-6">
-                    <Page2Content />
-                </section>
-            </div>
-        </main>
-    );
+  return (
+    <main className="noiseBackground">
+      <MobileHeader />
+      <div className="flex w-[100vw] overflow-hidden h-[calc(100dvh-4rem)] md:h-[100dvh]">
+        <div className="hidden md:block">
+          <Sidebar />
+        </div>
+        <section className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-hide px-4 sm:px-6 md:px-8 py-4 sm:py-6 flex flex-col">
+          <Page2Content />
+          <div className="mt-8 md:hidden">
+            <MobileFooter />
+          </div>
+        </section>
+      </div>
+    </main>
+  );
 }

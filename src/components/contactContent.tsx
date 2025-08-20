@@ -1,15 +1,12 @@
-// components/contactsContent.tsx
 import Link from "next/link";
 
 export default function ContactsContent() {
   return (
     <div className="max-w-3xl">
-      {/* Title */}
       <h2 className="uppercase tracking-widest text-2xl font-light text-neutral-300">
         Contact Info
       </h2>
 
-      {/* Block 1 */}
       <hr className="my-6 border-neutral-500/50" />
       <section>
         <h3 className="uppercase tracking-wide text-xl font-light text-white">
@@ -30,8 +27,6 @@ export default function ContactsContent() {
           </p>
         </div>
       </section>
-
-      {/* Block 2 */}
       <p className="mt-8 text-xs uppercase tracking-wide text-neutral-400">
         Represented by:
       </p>
@@ -74,7 +69,6 @@ export default function ContactsContent() {
         </div>
       </section>
 
-      {/* Block 3 */}
       <p className="mt-8 text-xs uppercase tracking-wide text-neutral-400">
         For Fine Art Prints:
       </p>
@@ -107,7 +101,6 @@ export default function ContactsContent() {
         </div>
       </section>
 
-      {/* closing rule (optional) */}
       <hr className="border-neutral-500/50" />
     </div>
   );

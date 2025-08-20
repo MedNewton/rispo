@@ -1,11 +1,11 @@
 import Image from "next/image";
 
-import rispo1 from "../assets/images/rispo1.webp";
-import rispo2 from "../assets/images/rispo2.webp";
+import rispo1 from "@/assets/images/rispo1.webp";
+import rispo2 from "@/assets/images/rispo2.webp";
 
 export default function AboutContent() {
     return (
-        <div className="flex flex-col gap-4 p-4">
+        <div className="flex flex-col gap-4 px-2 lg:px-4 pt-2 lg:pt-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-8 p-4">
                 <div className="relative flex-1 flex flex-col h-[500px]">
                     <Image src={rispo1} alt="Image 3" fill className="object-cover grayscale" />

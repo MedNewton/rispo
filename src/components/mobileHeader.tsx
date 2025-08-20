@@ -31,11 +31,11 @@ export default function MobileHeader() {
 
   return (
     <>
-      <header className="md:hidden fixed inset-x-0 top-0 z-[60] h-16 bg-black backdrop-blur border-b border-neutral-300">
+      <header className="md:hidden fixed inset-x-0 top-0 z-[60] h-16 bg-black backdrop-blur border-b border-neutral-500">
         <div className="mx-auto flex h-full max-w-screen-xl items-center justify-between px-5">
           <Link
             href="/"
-            className="text-lg sm:text-xl font-semibold tracking-[0.25em] leading-none truncate uppercase"
+            className="text-lg sm:text-xl font-semibold tracking-[0.25em] leading-none truncate uppercase text-white"
           >
             Giordano Rispo
           </Link>
