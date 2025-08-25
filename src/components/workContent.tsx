@@ -228,7 +228,7 @@ function MasonryTile({
                 group-hover:scale-[1.005]
               "
               placeholder="empty"           // faster than blur; shimmer covers it
-              onLoadingComplete={() => setDecoded(true)}
+              onLoad={() => setDecoded(true)}
               priority={isPriority}         // adds fetchPriority="high"
               loading={loading}             // eager for first few, lazy for the rest
               decoding="async"
