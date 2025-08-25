@@ -98,3 +98,10 @@ a { color: inherit; text-decoration: none; }
   animation: curtain-down var(--dur, 0.9s) cubic-bezier(0.22,1,0.36,1) both;
   animation-delay: var(--d, 0s);
 }
+
+/* No long-press save / drag on images */
+img, [data-image-guard] img {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  user-select: none;
+}

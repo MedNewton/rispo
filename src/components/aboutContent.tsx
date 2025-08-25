@@ -34,20 +34,20 @@ function ClipRevealBlock({
       <div
         aria-hidden="true"
         className={[
-          'absolute inset-0 z-[1]',
+          'pointer-events-none absolute inset-0 z-[1] rounded-lg',
           decoded ? 'opacity-0' : 'opacity-100 animate-shimmer'
         ].join(' ')}
         style={{ transition: 'opacity 280ms ease' }}
       />
 
-      <div className={`clip-reveal ${decoded ? 'clip-reveal-play' : ''}`}>
+      <div className={`clip-reveal ${decoded ? 'clip-reveal-play' : ''}`} data-image-guard>
         <Image
           src={src}
           alt={alt}
           fill
           sizes="(max-width: 640px) 100vw, 50vw"
           className={`object-cover ${className}`}
-          onLoadingComplete={() => setDecoded(true)}
+          onLoad={() => setDecoded(true)}
           placeholder="empty"
           priority
           onContextMenu={(e) => e.preventDefault()}

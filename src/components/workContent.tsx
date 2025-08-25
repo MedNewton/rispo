@@ -201,13 +201,13 @@ function MasonryTile({
           <div
             aria-hidden="true"
             className={[
-              'absolute inset-0 z-[1]',
+              'pointer-events-none absolute inset-0 z-[1] rounded-lg',
               decoded ? 'opacity-0' : 'opacity-100 animate-shimmer'
             ].join(' ')}
             style={{ transition: 'opacity 280ms ease' }}
           />
 
-          <div className={`reveal ${decoded ? 'reveal-play' : ''}`} style={vars}>
+          <div className={`reveal ${decoded ? 'reveal-play' : ''}`} style={vars} data-image-guard>
             <Image
               src={src}
               alt={alt}

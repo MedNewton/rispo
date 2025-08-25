@@ -1,33 +1,20 @@
-import "@/styles/globals.css";
+import '@/styles/globals.css';
+import {Poppins} from 'next/font/google';
+import DisableImageContext from '@/components/DisableImageContext';
+import {getMessages, getLocale, getTranslations} from 'next-intl/server'; 
+import { NextIntlClientProvider } from 'next-intl';
+const poppins = Poppins({ weight: ['400','500','600','700'], subsets: ['latin'], variable: '--font-poppins' });
 
-import { type Metadata } from "next";
-import { Poppins } from "next/font/google";
-import { NextIntlClientProvider, useMessages, useLocale } from "next-intl";
-import DisableImageContext from "@/components/DisableImageContext";
-import { useTranslations } from "next-intl";
-export const metadata: Metadata = {
-  title: "Giordano Rispo",
-  description: "Giordano Rispo - Photographer",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
-};
+export default async function RootLayout({children}: {children: React.ReactNode}) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+  const t = await getTranslations();
 
-const poppins = Poppins({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  variable: "--font-poppins",
-});
-
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
-  const messages = useMessages();
-  const locale = useLocale();
-  const t = useTranslations();
   return (
     <html lang={locale} className={poppins.variable}>
       <body>
-        <NextIntlClientProvider messages={messages} locale={locale}>
-          <DisableImageContext message={t("imageContextMessage")} durationMs={1400} />
+        <DisableImageContext message={t('imageContextMessage')} durationMs={1400} />
+        <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
       </body>

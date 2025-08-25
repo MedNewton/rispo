@@ -26,14 +26,14 @@ function ClipRevealCard({ src, alt, delay }: Card & { delay: number }) {
   return (
     <div className="flex flex-col h-[550px]">
       <div style={vars} className="relative flex-1 overflow-hidden">
-        <div className={`clip-reveal ${decoded ? 'clip-reveal-play' : ''}`}>
+        <div className={`clip-reveal ${decoded ? 'clip-reveal-play' : ''}`} data-image-guard>
           <Image
             src={src}
             alt={alt}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
             className="object-cover"
-            onLoadingComplete={() => setDecoded(true)}
+            onLoad={() => setDecoded(true)}
             priority
             onContextMenu={(e) => e.preventDefault()}
             draggable={false}

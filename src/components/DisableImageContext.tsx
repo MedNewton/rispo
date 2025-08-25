@@ -1,4 +1,3 @@
-// src/components/DisableImageContext.tsx
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
@@ -16,28 +15,37 @@ export default function DisableImageContext({
   useEffect(() => {
     const opts = { capture: true } as const;
 
-    const triggerToast = () => {
+    const isImageArea = (el: Element | null) => {
+      if (!el) return false;
+      if (el.closest('[data-allow-contextmenu]')) return false;
+
+      if ((el as HTMLElement).tagName === 'IMG' || el.closest('img')) return true;
+
+      const guard = el.closest('[data-image-guard]');
+      if (guard?.querySelector('img')) return true;
+
+      return false;
+    };
+
+    const showToast = () => {
       setShow(true);
       if (hideTimer.current) window.clearTimeout(hideTimer.current);
       hideTimer.current = window.setTimeout(() => setShow(false), durationMs);
     };
 
     const onContext = (e: MouseEvent) => {
-      const t = e.target as HTMLElement | null;
-      if (!t) return;
-      if (t.closest('[data-allow-contextmenu]')) return; // opt-out area
-      if (t.tagName === 'IMG' || t.closest('img')) {
+      const t = e.target as Element | null;
+      if (isImageArea(t)) {
         e.preventDefault();
-        triggerToast();
+        showToast();
       }
     };
 
     const onDragStart = (e: DragEvent) => {
-      const t = e.target as HTMLElement | null;
-      if (!t || t.closest('[data-allow-contextmenu]')) return;
-      if (t.tagName === 'IMG') {
+      const t = e.target as Element | null;
+      if (isImageArea(t)) {
         e.preventDefault();
-        triggerToast();
+        showToast();
       }
     };
 
@@ -58,7 +66,7 @@ export default function DisableImageContext({
         show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
       }`}
     >
-      <div className="pointer-events-auto rounded-full bg-white/10 text-white text-xs px-3 py-1.5 backdrop-blur border border-white/15 shadow-lg">
+      <div className="pointer-events-auto rounded-full bg-white/10 text-white text-base px-3 py-1.5 backdrop-blur border border-white/15 shadow-lg">
         {message}
       </div>
     </div>
