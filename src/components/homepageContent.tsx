@@ -1,4 +1,3 @@
-// src/app/components/homepageContent.tsx
 'use client';
 
 import { useState, type CSSProperties } from 'react';
@@ -30,8 +29,6 @@ function ClipRevealCard({ href, src, alt, delay }: Card & { delay: number }) {
     <div className="flex flex-col h-[550px]">
       <Link href={href} className="flex flex-col h-[550px]">
         <div style={vars} className="relative flex-1 overflow-hidden">
-          {/* Initial state is clipped via .clip-reveal (globals.css).
-              When decoded === true, we add .clip-reveal-play to animate. */}
           <div className={`clip-reveal ${decoded ? 'clip-reveal-play' : ''}`}>
             <Image
               src={src}
@@ -39,12 +36,10 @@ function ClipRevealCard({ href, src, alt, delay }: Card & { delay: number }) {
               fill
               sizes="(max-width: 768px) 100vw, 33vw"
               className="object-cover"
-              // Fire only after decode → prevents any show/hide race
               onLoadingComplete={() => setDecoded(true)}
-              // Above-the-fold → preload for reliable first-paint behavior
               priority
-              // If blur placeholder causes any pulse, switch to placeholder="empty"
-              // placeholder="blur"
+              onContextMenu={(e) => e.preventDefault()}
+              draggable={false}
             />
           </div>
         </div>

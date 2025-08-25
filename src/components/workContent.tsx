@@ -224,6 +224,8 @@ function MasonryTile({
               priority={isPriority}
               loading={loading}
               decoding="async"
+              onContextMenu={(e) => e.preventDefault()}
+              draggable={false}
             />
             <div className="reveal-mask" aria-hidden="true" />
           </div>

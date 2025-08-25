@@ -3,7 +3,7 @@ import "@/styles/globals.css";
 import { type Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { NextIntlClientProvider, useMessages, useLocale } from "next-intl";
-
+import DisableImageContext from "@/components/DisableImageContext";
 export const metadata: Metadata = {
   title: "Giordano Rispo",
   description: "Giordano Rispo - Photographer",
@@ -26,6 +26,7 @@ export default function RootLayout({
     <html lang={locale} className={poppins.variable}>
       <body>
         <NextIntlClientProvider messages={messages} locale={locale}>
+          <DisableImageContext />
           {children}
         </NextIntlClientProvider>
       </body>

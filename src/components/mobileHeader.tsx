@@ -19,14 +19,12 @@ const NAV: NavItem[] = [
 ];
 
 export default function MobileHeader() {
-  const t = useTranslations(); // uses default namespace from your messages
+  const t = useTranslations();
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  // Close menu on route change
   useEffect(() => setOpen(false), [pathname]);
 
-  // Lock body scroll when menu is open
   useEffect(() => {
     const { style } = document.body;
     const prev = style.overflow;
@@ -122,8 +120,6 @@ export default function MobileHeader() {
           </ul>
         </nav>
       </div>
-
-      {/* spacer to offset the fixed header */}
       <div className="md:hidden h-16" />
     </>
   );

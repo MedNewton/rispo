@@ -50,6 +50,8 @@ function ClipRevealBlock({
           onLoadingComplete={() => setDecoded(true)}
           placeholder="empty"
           priority
+          onContextMenu={(e) => e.preventDefault()}
+          draggable={false}
         />
       </div>
     </div>
