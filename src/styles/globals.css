@@ -5,6 +5,45 @@
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+@layer utilities {
+  @keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  .animate-shimmer {
+    background-image: linear-gradient(
+      110deg,
+      rgba(255,255,255,0.06) 8%,
+      rgba(255,255,255,0.12) 18%,
+      rgba(255,255,255,0.06) 33%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.2s infinite cubic-bezier(0.22,1,0.36,1);
+  }
+
+  @keyframes clip-down {
+    to { clip-path: inset(0 0 0 0); }
+  }
+
+  /* Initial state: fully clipped (hidden from bottom) */
+  .clip-reveal {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: inset(0 0 100% 0);
+    will-change: clip-path;
+    transform: translateZ(0); /* avoid subpixel seams */
+  }
+
+  /* Play state: run the reveal animation with optional CSS vars */
+  .clip-reveal-play {
+    animation: clip-down var(--dur, 1s) cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--d, 0s);
+  }
+}
+
+
 p, h1, h2, h3, h4, h5, h6, span {
   color: #fff;
 }
