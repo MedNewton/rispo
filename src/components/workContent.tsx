@@ -185,7 +185,7 @@ function MasonryTile({
     <figure className="mb-6 break-inside-avoid">
       <Link
         href={href}
-        className="group relative block rounded-lg overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+        className="group relative block overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
       >
         <div
           ref={parallaxRef}
@@ -201,7 +201,7 @@ function MasonryTile({
           <div
             aria-hidden="true"
             className={[
-              'absolute inset-0 z-[1] rounded-lg',
+              'absolute inset-0 z-[1]',
               decoded ? 'opacity-0' : 'opacity-100 animate-shimmer'
             ].join(' ')}
             style={{ transition: 'opacity 280ms ease' }}
