@@ -1,7 +1,7 @@
 // components/page1Content.tsx
 'use client';
 
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
 import Image, {type StaticImageData} from 'next/image';
 import Link from 'next/link';
 
@@ -52,7 +52,21 @@ const IMAGES: Card[] = [
 ];
 
 type StyleWithVar = React.CSSProperties & {'--parallax-y'?: string};
+type CSSVars = React.CSSProperties & {'--d'?: string; '--dur'?: string};
 
+/* closest scroll container (for parallax) */
+function findScrollRoot(node: Element | null): Element | null {
+  let el: Element | null = node?.parentElement ?? null;
+  while (el) {
+    const cs = window.getComputedStyle(el);
+    const oy = cs.overflowY;
+    if (oy === 'auto' || oy === 'scroll') return el;
+    el = el.parentElement;
+  }
+  return null;
+}
+
+/* tiny parallax */
 function useParallaxVar<T extends HTMLElement>(amplitudePx: number) {
   const ref = useRef<T | null>(null);
   const [y, setY] = useState(0);
@@ -60,101 +74,135 @@ function useParallaxVar<T extends HTMLElement>(amplitudePx: number) {
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
-    let raf = 0;
+
+    const root = findScrollRoot(node);
+    let rafId = 0;
 
     const update = () => {
-      raf = 0;
+      rafId = 0;
       const rect = node.getBoundingClientRect();
-      const vh = window.innerHeight || 1;
+      const rootRect =
+        root
+          ? root.getBoundingClientRect()
+          : ({ top: 0, height: window.innerHeight || 1 } as DOMRect | { top: number; height: number });
+      const vh = root ? rootRect.height : (window.innerHeight || 1);
+      const topRef = root ? rootRect.top : 0;
       const center = rect.top + rect.height / 2;
-      const progress = Math.min(Math.max(center / vh, 0), 1);
-      const offset = (progress - 0.5) * amplitudePx; // -amp/2..+amp/2
+      const progress = Math.min(Math.max((center - topRef) / vh, 0), 1);
+      const offset = (progress - 0.5) * amplitudePx;
       setY(offset);
     };
 
-    const onScroll = () => {
-      if (raf) return;
-      raf = window.requestAnimationFrame(update);
+    const onScroll: EventListener = () => {
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(update);
     };
 
     update();
-    window.addEventListener('scroll', onScroll, {passive: true});
+
+    const target: EventTarget = (root ?? window) as unknown as EventTarget;
+    target.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
+
     return () => {
-      window.removeEventListener('scroll', onScroll);
+      target.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
-      if (raf) cancelAnimationFrame(raf);
+      if (rafId) cancelAnimationFrame(rafId);
     };
   }, [amplitudePx]);
 
-  const style: StyleWithVar = {'--parallax-y': `${y}px`};
-  return {ref, style};
+  const style: StyleWithVar = { '--parallax-y': `${y}px` };
+  return { ref, style };
 }
 
 function depthForIndex(i: number): number {
   const levels = [7, 9, 11];
-  return levels[i % levels.length] ?? 7;
+  return levels[i % levels.length] ?? 9;
 }
 
+/* component */
 export default function WorkContent() {
   return (
     <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 [column-fill:_balance] pt-4 lg:pt-0">
       {IMAGES.map(({ src, alt, id }, i) => (
-        <MasonryTile key={id} href={`/portfolio/${id}`} src={src} alt={alt} amplitude={depthForIndex(i)} />
+        <MasonryTile
+          key={id}
+          index={i}
+          href={`/portfolio/${id}`}
+          src={src}
+          alt={alt}
+          amplitude={depthForIndex(i)}
+        />
       ))}
     </div>
   );
 }
 
 function MasonryTile({
+  index,
   href,
   src,
   alt,
   amplitude
 }: {
+  index: number;
   href: string;
   src: StaticImageData;
   alt: string;
   amplitude: number;
 }) {
-  const [ready, setReady] = useState(false);
-  const {ref, style} = useParallaxVar<HTMLDivElement>(amplitude);
+  const {ref: parallaxRef, style} = useParallaxVar<HTMLDivElement>(amplitude);
+  const [decoded, setDecoded] = useState(false);
+
+  const { width, height } = src;
+  const vars: CSSVars = useMemo(() => ({ '--d': '0s', '--dur': '0.9s' }), []);
 
   return (
     <figure className="mb-6 break-inside-avoid">
       <Link
         href={href}
-        className="group relative block overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+        className="group relative block rounded-lg overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
       >
         <div
-          ref={ref}
+          ref={parallaxRef}
           style={style}
           className="
             relative transform-gpu will-change-transform
+            transition-transform duration-500 ease-out
             translate-y-[var(--parallax-y)]
-            transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
             group-hover:scale-[1.01]
             group-hover:translate-y-[calc(var(--parallax-y)-2px)]
           "
         >
-          {/* skeleton shimmer */}
+          {/* shimmer until decoded */}
           <div
             aria-hidden="true"
             className={[
               'absolute inset-0 z-[1] rounded-lg',
-              ready ? 'opacity-0' : 'opacity-100 animate-shimmer'
+              decoded ? 'opacity-0' : 'opacity-100 animate-shimmer'
             ].join(' ')}
-            style={{transition: 'opacity 280ms ease'}}
+            style={{ transition: 'opacity 280ms ease' }}
           />
-          <Image
-            src={src}
-            alt={alt}
-            placeholder="blur"
-            className="w-full h-auto object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.005]"
-            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            onLoadingComplete={() => setReady(true)}
-            priority={false}
-          />
+
+          {/* Image in natural flow (gives intrinsic height ASAP) */}
+          <div className={`reveal ${decoded ? 'reveal-play' : ''}`} style={vars}>
+            <Image
+              src={src}
+              alt={alt}
+              width={width}
+              height={height}
+              className="
+                w-full h-auto object-cover
+                transition-transform duration-500 ease-out
+                group-hover:scale-[1.005]
+              "
+              placeholder="blur"
+              onLoadingComplete={() => setDecoded(true)}
+              loading="eager"       /* make it bullet-proof; dial back later if you want */
+              priority={index < 6}  /* a few above-the-fold as priority */
+            />
+            <div className="reveal-mask" aria-hidden="true" />
+          </div>
         </div>
       </Link>
     </figure>

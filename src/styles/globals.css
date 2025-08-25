@@ -76,3 +76,25 @@ body,
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* ---- smooth curtain reveal (top -> bottom) ---- */
+@keyframes curtain-down { to { transform: translateY(100%); } }
+
+.reveal {
+  position: relative;
+}
+
+.reveal-mask {
+  position: absolute;
+  inset: 0;
+  background: #000; /* match your page bg */
+  transform: translateY(0);
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* add .reveal-play on decode to run the animation */
+.reveal.reveal-play .reveal-mask {
+  animation: curtain-down var(--dur, 0.9s) cubic-bezier(0.22,1,0.36,1) both;
+  animation-delay: var(--d, 0s);
+}
