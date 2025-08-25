@@ -197,7 +197,7 @@ function MasonryTile({
                 group-hover:scale-[1.005]
               "
               placeholder="blur"
-              onLoadingComplete={() => setDecoded(true)}
+              onLoad={() => setDecoded(true)}
               loading="eager"       /* make it bullet-proof; dial back later if you want */
               priority={index < 6}  /* a few above-the-fold as priority */
             />
