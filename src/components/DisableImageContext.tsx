@@ -62,7 +62,7 @@ export default function DisableImageContext({
         show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
       }`}
     >
-      <div className="pointer-events-auto rounded-full bg-white/10 text-white text-xs px-3 py-1.5 backdrop-blur border border-white/15 shadow-lg">
+      <div className="pointer-events-auto rounded-full bg-white/10 text-white text-base px-3 py-1.5 backdrop-blur border border-white/15 shadow-lg">
         {message}
       </div>
     </div>

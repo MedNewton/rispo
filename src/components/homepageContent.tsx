@@ -2,8 +2,6 @@
 
 import { useState, type CSSProperties } from 'react';
 import Image, { type StaticImageData } from 'next/image';
-import Link from 'next/link';
-
 import image2 from '@/assets/images/2.webp';
 import image6 from '@/assets/images/6.webp';
 import image12 from '@/assets/images/12.webp';
@@ -21,29 +19,27 @@ const CARDS: Card[] = [
 
 type CSSVars = CSSProperties & { '--d'?: string; '--dur'?: string };
 
-function ClipRevealCard({ href, src, alt, delay }: Card & { delay: number }) {
+function ClipRevealCard({ src, alt, delay }: Card & { delay: number }) {
   const [decoded, setDecoded] = useState(false);
   const vars: CSSVars = { '--d': `${delay}s`, '--dur': '1s' };
 
   return (
     <div className="flex flex-col h-[550px]">
-      <Link href={href} className="flex flex-col h-[550px]">
-        <div style={vars} className="relative flex-1 overflow-hidden">
-          <div className={`clip-reveal ${decoded ? 'clip-reveal-play' : ''}`}>
-            <Image
-              src={src}
-              alt={alt}
-              fill
-              sizes="(max-width: 768px) 100vw, 33vw"
-              className="object-cover"
-              onLoadingComplete={() => setDecoded(true)}
-              priority
-              onContextMenu={(e) => e.preventDefault()}
-              draggable={false}
-            />
-          </div>
+      <div style={vars} className="relative flex-1 overflow-hidden">
+        <div className={`clip-reveal ${decoded ? 'clip-reveal-play' : ''}`}>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            className="object-cover"
+            onLoadingComplete={() => setDecoded(true)}
+            priority
+            onContextMenu={(e) => e.preventDefault()}
+            draggable={false}
+          />
         </div>
-      </Link>
+      </div>
     </div>
   );
 }
