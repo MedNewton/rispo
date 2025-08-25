@@ -1,4 +1,3 @@
-// components/page1Content.tsx
 'use client';
 
 import {useEffect, useMemo, useRef, useState} from 'react';
@@ -51,13 +50,12 @@ const IMAGES: Card[] = [
   { src: image20, alt: 'Image 20', id: '20' }
 ];
 
-// at top of file
 function usePriorityBudget(): number {
-  const [budget, setBudget] = useState(6); // default for safety
+  const [budget, setBudget] = useState(6);
   useEffect(() => {
     const mSm = window.matchMedia('(min-width: 640px)');
     const mLg = window.matchMedia('(min-width: 1024px)');
-    const compute = () => setBudget(mLg.matches ? 9 : mSm.matches ? 6 : 3); // ~3 rows of first view
+    const compute = () => setBudget(mLg.matches ? 9 : mSm.matches ? 6 : 3);
     compute();
     const onChange = () => compute();
     mSm.addEventListener('change', onChange);
@@ -74,7 +72,6 @@ function usePriorityBudget(): number {
 type StyleWithVar = React.CSSProperties & {'--parallax-y'?: string};
 type CSSVars = React.CSSProperties & {'--d'?: string; '--dur'?: string};
 
-/* closest scroll container (for parallax) */
 function findScrollRoot(node: Element | null): Element | null {
   let el: Element | null = node?.parentElement ?? null;
   while (el) {
@@ -86,7 +83,6 @@ function findScrollRoot(node: Element | null): Element | null {
   return null;
 }
 
-/* tiny parallax */
 function useParallaxVar<T extends HTMLElement>(amplitudePx: number) {
   const ref = useRef<T | null>(null);
   const [y, setY] = useState(0);
@@ -140,7 +136,6 @@ function depthForIndex(i: number): number {
   return levels[i % levels.length] ?? 9;
 }
 
-/* component */
 export default function WorkContent() {
   const priorityBudget = usePriorityBudget();
 
@@ -183,7 +178,6 @@ function MasonryTile({
   const { width, height } = src;
   const vars: CSSVars = useMemo(() => ({ '--d': '0s', '--dur': '0.9s' }), []);
 
-  // First N tiles get high fetch priority; the rest are lazy
   const isPriority = index < priorityBudget;
   const loading: 'eager' | 'lazy' = isPriority ? 'eager' : 'lazy';
 
@@ -204,7 +198,6 @@ function MasonryTile({
             group-hover:translate-y-[calc(var(--parallax-y)-2px)]
           "
         >
-          {/* shimmer until decoded */}
           <div
             aria-hidden="true"
             className={[
@@ -214,7 +207,6 @@ function MasonryTile({
             style={{ transition: 'opacity 280ms ease' }}
           />
 
-          {/* Natural layout + responsive sizes */}
           <div className={`reveal ${decoded ? 'reveal-play' : ''}`} style={vars}>
             <Image
               src={src}
@@ -227,10 +219,10 @@ function MasonryTile({
                 transition-transform duration-500 ease-out
                 group-hover:scale-[1.005]
               "
-              placeholder="empty"           // faster than blur; shimmer covers it
+              placeholder="empty"
               onLoad={() => setDecoded(true)}
-              priority={isPriority}         // adds fetchPriority="high"
-              loading={loading}             // eager for first few, lazy for the rest
+              priority={isPriority}
+              loading={loading}
               decoding="async"
             />
             <div className="reveal-mask" aria-hidden="true" />
