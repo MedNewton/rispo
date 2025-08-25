@@ -6,6 +6,7 @@
 }
 
 @layer utilities {
+  /* skeleton shimmer */
   @keyframes shimmer {
     0%   { background-position: -200% 0; }
     100% { background-position: 200% 0; }
@@ -21,6 +22,7 @@
     animation: shimmer 1.2s infinite cubic-bezier(0.22,1,0.36,1);
   }
 
+  /* clip reveal */
   @keyframes clip-down {
     to { clip-path: inset(0 0 0 0); }
   }
@@ -43,10 +45,8 @@
   }
 }
 
-
-p, h1, h2, h3, h4, h5, h6, span {
-  color: #fff;
-}
+/* Make text white by default without forcing every span */
+body { color: #fff; }
 
 html,
 body,

@@ -1,7 +1,9 @@
+// src/app/components/homepageContent.tsx
 'use client';
 
-import {useEffect, useRef, useState} from 'react';
+import { useState, type CSSProperties } from 'react';
 import Image, { type StaticImageData } from 'next/image';
+import Link from 'next/link';
 
 import image2 from '@/assets/images/2.webp';
 import image6 from '@/assets/images/6.webp';
@@ -18,60 +20,35 @@ const CARDS: Card[] = [
   { href: '/category3', src: image2, alt: 'Image 17' }
 ];
 
-// SSR-safe: fires once when element enters viewport
-function useInViewOnce<T extends Element>(options?: IntersectionObserverInit) {
-  const ref = useRef<T | null>(null);
-  const [inView, setInView] = useState(false);
+type CSSVars = CSSProperties & { '--d'?: string; '--dur'?: string };
 
-  useEffect(() => {
-    const node = ref.current;
-    if (typeof window === 'undefined' || !node) return;
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry?.isIntersecting) {
-        setInView(true);
-        obs.disconnect();
-      }
-    }, options);
-    obs.observe(node);
-    return () => obs.disconnect();
-  }, [options]);
-
-  return { ref, inView };
-}
-
-type CSSVars = React.CSSProperties & { '--d'?: string; '--dur'?: string };
-
-function ClipRevealCard({ src, alt, delay }: { src: StaticImageData; alt: string; delay: number }) {
-  const [imgReady, setImgReady] = useState(false);
-  const { ref, inView } = useInViewOnce<HTMLDivElement>({ rootMargin: '0px 0px -10% 0px' });
-
-  // Play only when both conditions are true
-  const play = inView && imgReady;
-
+function ClipRevealCard({ href, src, alt, delay }: Card & { delay: number }) {
+  const [decoded, setDecoded] = useState(false);
   const vars: CSSVars = { '--d': `${delay}s`, '--dur': '1s' };
 
   return (
     <div className="flex flex-col h-[550px]">
-      <div ref={ref} style={vars} className="relative flex-1 overflow-hidden rounded-lg">
-        {/* The clipped wrapper (global utility ensures it's clipped at first paint) */}
-        <div className={`clip-reveal ${play ? 'clip-reveal-play' : ''}`}>
-          <Image
-            src={src}
-            alt={alt}
-            fill
-            sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover"
-            // Decode complete → safe to reveal without flashes
-            onLoadingComplete={() => setImgReady(true)}
-            // If above the fold, you can set priority={true}
-            priority={false}
-            // If you still ever see a flash from blur placeholder, remove it:
-            // placeholder="empty"
-            // or keep it (usually fine):
-            // placeholder="blur"
-          />
+      <Link href={href} className="flex flex-col h-[550px]">
+        <div style={vars} className="relative flex-1 overflow-hidden rounded-lg">
+          {/* Initial state is clipped via .clip-reveal (globals.css).
+              When decoded === true, we add .clip-reveal-play to animate. */}
+          <div className={`clip-reveal ${decoded ? 'clip-reveal-play' : ''}`}>
+            <Image
+              src={src}
+              alt={alt}
+              fill
+              sizes="(max-width: 768px) 100vw, 33vw"
+              className="object-cover"
+              // Fire only after decode → prevents any show/hide race
+              onLoadingComplete={() => setDecoded(true)}
+              // Above-the-fold → preload for reliable first-paint behavior
+              priority
+              // If blur placeholder causes any pulse, switch to placeholder="empty"
+              // placeholder="blur"
+            />
+          </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 }
@@ -82,6 +59,7 @@ export default function HomepageContent() {
       {CARDS.map((card, i) => (
         <ClipRevealCard
           key={card.href}
+          href={card.href}
           src={card.src}
           alt={card.alt}
           delay={START_DELAY + i * STAGGER}
