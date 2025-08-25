@@ -29,7 +29,7 @@ function ClipRevealCard({ href, src, alt, delay }: Card & { delay: number }) {
   return (
     <div className="flex flex-col h-[550px]">
       <Link href={href} className="flex flex-col h-[550px]">
-        <div style={vars} className="relative flex-1 overflow-hidden rounded-lg">
+        <div style={vars} className="relative flex-1 overflow-hidden">
           {/* Initial state is clipped via .clip-reveal (globals.css).
               When decoded === true, we add .clip-reveal-play to animate. */}
           <div className={`clip-reveal ${decoded ? 'clip-reveal-play' : ''}`}>
