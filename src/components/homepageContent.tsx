@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image, { type StaticImageData } from 'next/image';
-import Link from 'next/link';
 
 import image2 from '@/assets/images/2.webp';
 import image6 from '@/assets/images/6.webp';
@@ -41,7 +40,7 @@ function useInViewOnce<T extends Element>(options?: IntersectionObserverInit) {
 
 type CSSVars = React.CSSProperties & { '--d'?: string; '--dur'?: string };
 
-function ClipRevealCard({ href, src, alt, delay }: Card & { delay: number }) {
+function ClipRevealCard({ src, alt, delay }: Card & { delay: number }) {
   const [imgReady, setImgReady] = useState(false);
   const { ref, inView } = useInViewOnce<HTMLDivElement>({ rootMargin: '0px 0px -10% 0px' });
   const play = inView && imgReady;
