@@ -4,6 +4,7 @@ import { type Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { NextIntlClientProvider, useMessages, useLocale } from "next-intl";
 import DisableImageContext from "@/components/DisableImageContext";
+import { useTranslations } from "next-intl";
 export const metadata: Metadata = {
   title: "Giordano Rispo",
   description: "Giordano Rispo - Photographer",
@@ -21,12 +22,12 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const messages = useMessages();
   const locale = useLocale();
-
+  const t = useTranslations();
   return (
     <html lang={locale} className={poppins.variable}>
       <body>
         <NextIntlClientProvider messages={messages} locale={locale}>
-          <DisableImageContext />
+          <DisableImageContext message={t("imageContextMessage")} durationMs={1400} />
           {children}
         </NextIntlClientProvider>
       </body>

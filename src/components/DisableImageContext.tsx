@@ -1,35 +1,31 @@
+// src/components/DisableImageContext.tsx
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
 
 export default function DisableImageContext({
   message = "Image can't be saved",
-  duration = 1600
+  durationMs = 1500
 }: {
   message?: string;
-  duration?: number;
+  durationMs?: number;
 }) {
   const [show, setShow] = useState(false);
-  const hideRef = useRef<number | null>(null);
-  const lastRef = useRef<number>(0);
+  const hideTimer = useRef<number | null>(null);
 
   useEffect(() => {
     const opts = { capture: true } as const;
 
     const triggerToast = () => {
-      const now = Date.now();
-      if (show && now - lastRef.current < 250) return;
-      lastRef.current = now;
       setShow(true);
-      if (hideRef.current) window.clearTimeout(hideRef.current);
-      hideRef.current = window.setTimeout(() => setShow(false), duration);
+      if (hideTimer.current) window.clearTimeout(hideTimer.current);
+      hideTimer.current = window.setTimeout(() => setShow(false), durationMs);
     };
 
     const onContext = (e: MouseEvent) => {
       const t = e.target as HTMLElement | null;
       if (!t) return;
-      if (t.closest('[data-allow-contextmenu]')) return;
-
+      if (t.closest('[data-allow-contextmenu]')) return; // opt-out area
       if (t.tagName === 'IMG' || t.closest('img')) {
         e.preventDefault();
         triggerToast();
@@ -50,19 +46,19 @@ export default function DisableImageContext({
     return () => {
       document.removeEventListener('contextmenu', onContext, opts);
       document.removeEventListener('dragstart', onDragStart, opts);
-      if (hideRef.current) window.clearTimeout(hideRef.current);
+      if (hideTimer.current) window.clearTimeout(hideTimer.current);
     };
-  }, [show, duration]);
+  }, [durationMs]);
 
   return (
     <div
       aria-live="polite"
       aria-atomic="true"
-      className={`fixed inset-x-0 bottom-6 z-[1000] pointer-events-none flex justify-center transition-[transform,opacity] duration-200 ${
+      className={`fixed inset-x-0 bottom-6 z-[1000] pointer-events-none flex justify-center transition-[opacity,transform] duration-200 ${
         show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
       }`}
     >
-      <div className="pointer-events-auto rounded-full bg-white/10 text-white text-base px-3 py-1.5 backdrop-blur border border-white/15 shadow-lg">
+      <div className="pointer-events-auto rounded-full bg-white/10 text-white text-xs px-3 py-1.5 backdrop-blur border border-white/15 shadow-lg">
         {message}
       </div>
     </div>
