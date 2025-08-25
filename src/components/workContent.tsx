@@ -1,7 +1,7 @@
 // components/page1Content.tsx
 'use client';
 
-import {useEffect, useMemo, useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import Image, {type StaticImageData} from 'next/image';
 import Link from 'next/link';
 
@@ -52,31 +52,7 @@ const IMAGES: Card[] = [
 ];
 
 type StyleWithVar = React.CSSProperties & {'--parallax-y'?: string};
-type CSSVars = React.CSSProperties & {'--d'?: string; '--dur'?: string};
 
-/* ---------- utilities ---------- */
-function findScrollRoot(node: Element | null): Element | null {
-  let el: Element | null = node?.parentElement ?? null;
-  while (el) {
-    const cs = window.getComputedStyle(el);
-    const oy = cs.overflowY;
-    if (oy === 'auto' || oy === 'scroll') return el;
-    el = el.parentElement;
-  }
-  return null;
-}
-
-function isVisibleWithin(el: Element, root: Element | null): boolean {
-  const er = el.getBoundingClientRect();
-  if (!root) {
-    const vh = window.innerHeight || 0;
-    return er.bottom > 0 && er.top < vh;
-  }
-  const rr = root.getBoundingClientRect();
-  return er.bottom > rr.top && er.top < rr.bottom;
-}
-
-/* Parallax that listens to the nearest scroll container (and window as fallback) */
 function useParallaxVar<T extends HTMLElement>(amplitudePx: number) {
   const ref = useRef<T | null>(null);
   const [y, setY] = useState(0);
@@ -84,169 +60,75 @@ function useParallaxVar<T extends HTMLElement>(amplitudePx: number) {
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
-
-    const root = findScrollRoot(node);
-    let rafId = 0;
+    let raf = 0;
 
     const update = () => {
-      rafId = 0;
+      raf = 0;
       const rect = node.getBoundingClientRect();
-      const rootRect = root ? root.getBoundingClientRect() : { top: 0, height: window.innerHeight || 1 };
-      const vh = root ? rootRect.height : (window.innerHeight || 1);
-      const topRef = root ? rootRect.top : 0;
+      const vh = window.innerHeight || 1;
       const center = rect.top + rect.height / 2;
-      const progress = Math.min(Math.max((center - topRef) / vh, 0), 1);
-      const offset = (progress - 0.5) * amplitudePx;
+      const progress = Math.min(Math.max(center / vh, 0), 1);
+      const offset = (progress - 0.5) * amplitudePx; // -amp/2..+amp/2
       setY(offset);
     };
 
-    const onScroll: EventListener = () => {
-      if (rafId) return;
-      rafId = window.requestAnimationFrame(update);
+    const onScroll = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(update);
     };
 
-    // run once
     update();
-
-    // listen on the real scroll container (or window as fallback)
-    const target: EventTarget = (root ?? window) as unknown as EventTarget;
-    target.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', onScroll, {passive: true});
     window.addEventListener('resize', onScroll);
-
     return () => {
-      target.removeEventListener('scroll', onScroll);
+      window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
-      if (rafId) cancelAnimationFrame(rafId);
+      if (raf) cancelAnimationFrame(raf);
     };
   }, [amplitudePx]);
 
-  const style: StyleWithVar = { '--parallax-y': `${y}px` };
-  return { ref, style };
-}
-
-
-/* In-view-once with scroll-root auto-detect */
-function useInViewOnce<T extends Element>(rootMargin = '600px 0px 600px 0px') {
-  const ref = useRef<T | null>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || typeof window === 'undefined') return;
-
-    const root = findScrollRoot(el);
-
-    // Immediate check for initial paint
-    if (isVisibleWithin(el, root)) {
-      setInView(true);
-      return;
-    }
-
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) {
-          setInView(true);
-          obs.disconnect();
-        }
-      },
-      {root: root ?? undefined, rootMargin}
-    );
-
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [rootMargin]);
-
-  return {ref, inView};
-}
-
-/* How many images to mount immediately (avoid Ctrl+F5 skeleton-only) */
-function useInitialVisibleCount() {
-  const [cols, setCols] = useState(1);
-  useEffect(() => {
-    const mSm = window.matchMedia('(min-width: 640px)');
-    const mLg = window.matchMedia('(min-width: 1024px)');
-
-    const compute = () => setCols(mLg.matches ? 3 : mSm.matches ? 2 : 1);
-    compute();
-
-    const onChange = () => compute();
-    mSm.addEventListener('change', onChange);
-    mLg.addEventListener('change', onChange);
-    return () => {
-      mSm.removeEventListener('change', onChange);
-      mLg.removeEventListener('change', onChange);
-    };
-  }, []);
-
-  // mount ~2 rows worth to be safe on various viewports
-  return cols * 2; // 2 rows per column
+  const style: StyleWithVar = {'--parallax-y': `${y}px`};
+  return {ref, style};
 }
 
 function depthForIndex(i: number): number {
   const levels = [7, 9, 11];
-  return levels[i % levels.length] ?? 9;
+  return levels[i % levels.length] ?? 7;
 }
 
-/* ---------- component ---------- */
 export default function WorkContent() {
-  const initialCount = useInitialVisibleCount();
-
   return (
     <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 [column-fill:_balance] pt-4 lg:pt-0">
       {IMAGES.map(({ src, alt, id }, i) => (
-        <MasonryTile
-          key={id}
-          index={i}
-          forceMount={i < initialCount}
-          href={`/portfolio/${id}`}
-          src={src}
-          alt={alt}
-          amplitude={depthForIndex(i)}
-        />
+        <MasonryTile key={id} href={`/portfolio/${id}`} src={src} alt={alt} amplitude={depthForIndex(i)} />
       ))}
     </div>
   );
 }
 
 function MasonryTile({
-  index,
-  forceMount,
   href,
   src,
   alt,
   amplitude
 }: {
-  index: number;
-  forceMount: boolean;
   href: string;
   src: StaticImageData;
   alt: string;
   amplitude: number;
 }) {
-  const {ref: inViewRef, inView} = useInViewOnce<HTMLDivElement>(); // auto root
-  const {ref: parallaxRef, style} = useParallaxVar<HTMLDivElement>(amplitude);
-
-  // Merge refs
-  const setRefs = (el: HTMLDivElement | null) => {
-    inViewRef.current = el;
-    parallaxRef.current = el;
-  };
-
-  const [decoded, setDecoded] = useState(false);
-  const aspect = `${src.width}/${src.height}`;
-  const vars: CSSVars = useMemo(() => ({'--d': '0s', '--dur': '0.9s'}), []);
-
-  const shouldRenderImage = forceMount || inView;
+  const [ready, setReady] = useState(false);
+  const {ref, style} = useParallaxVar<HTMLDivElement>(amplitude);
 
   return (
     <figure className="mb-6 break-inside-avoid">
       <Link
         href={href}
-        className="group relative block rounded-lg overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+        className="group relative block overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
       >
         <div
-          ref={setRefs}
-          style={{...style, aspectRatio: aspect}}
+          ref={ref}
+          style={style}
           className="
             relative transform-gpu will-change-transform
             translate-y-[var(--parallax-y)]
@@ -255,39 +137,24 @@ function MasonryTile({
             group-hover:translate-y-[calc(var(--parallax-y)-2px)]
           "
         >
-          {!shouldRenderImage ? (
-            <div className="absolute inset-0 rounded-lg animate-shimmer" aria-hidden="true" />
-          ) : (
-            <>
-              {/* shimmer until decoded */}
-              <div
-                aria-hidden="true"
-                className={[
-                  'absolute inset-0 z-[1] rounded-lg',
-                  decoded ? 'opacity-0' : 'opacity-100 animate-shimmer'
-                ].join(' ')}
-                style={{transition: 'opacity 280ms ease'}}
-              />
-
-              {/* curtain reveal wrapper (global utilities in globals.css) */}
-              <div className={`clip-reveal ${decoded ? 'clip-reveal-play' : ''}`} style={vars}>
-                <Image
-                  src={src}
-                  alt={alt}
-                  fill
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="
-                    object-cover
-                    transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
-                    group-hover:scale-[1.005]
-                  "
-                  placeholder="blur"
-                  onLoadingComplete={() => setDecoded(true)}
-                  priority={forceMount && index < 6} /* preload some above-the-fold tiles */
-                />
-              </div>
-            </>
-          )}
+          {/* skeleton shimmer */}
+          <div
+            aria-hidden="true"
+            className={[
+              'absolute inset-0 z-[1] rounded-lg',
+              ready ? 'opacity-0' : 'opacity-100 animate-shimmer'
+            ].join(' ')}
+            style={{transition: 'opacity 280ms ease'}}
+          />
+          <Image
+            src={src}
+            alt={alt}
+            placeholder="blur"
+            className="w-full h-auto object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.005]"
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            onLoadingComplete={() => setReady(true)}
+            priority={false}
+          />
         </div>
       </Link>
     </figure>
