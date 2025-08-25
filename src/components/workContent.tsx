@@ -51,6 +51,26 @@ const IMAGES: Card[] = [
   { src: image20, alt: 'Image 20', id: '20' }
 ];
 
+// at top of file
+function usePriorityBudget(): number {
+  const [budget, setBudget] = useState(6); // default for safety
+  useEffect(() => {
+    const mSm = window.matchMedia('(min-width: 640px)');
+    const mLg = window.matchMedia('(min-width: 1024px)');
+    const compute = () => setBudget(mLg.matches ? 9 : mSm.matches ? 6 : 3); // ~3 rows of first view
+    compute();
+    const onChange = () => compute();
+    mSm.addEventListener('change', onChange);
+    mLg.addEventListener('change', onChange);
+    return () => {
+      mSm.removeEventListener('change', onChange);
+      mLg.removeEventListener('change', onChange);
+    };
+  }, []);
+  return budget;
+}
+
+
 type StyleWithVar = React.CSSProperties & {'--parallax-y'?: string};
 type CSSVars = React.CSSProperties & {'--d'?: string; '--dur'?: string};
 
@@ -122,12 +142,15 @@ function depthForIndex(i: number): number {
 
 /* component */
 export default function WorkContent() {
+  const priorityBudget = usePriorityBudget();
+
   return (
     <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 [column-fill:_balance] pt-4 lg:pt-0">
       {IMAGES.map(({ src, alt, id }, i) => (
         <MasonryTile
           key={id}
           index={i}
+          priorityBudget={priorityBudget}
           href={`/portfolio/${id}`}
           src={src}
           alt={alt}
@@ -138,14 +161,17 @@ export default function WorkContent() {
   );
 }
 
+
 function MasonryTile({
   index,
+  priorityBudget,
   href,
   src,
   alt,
   amplitude
 }: {
   index: number;
+  priorityBudget: number;
   href: string;
   src: StaticImageData;
   alt: string;
@@ -156,6 +182,10 @@ function MasonryTile({
 
   const { width, height } = src;
   const vars: CSSVars = useMemo(() => ({ '--d': '0s', '--dur': '0.9s' }), []);
+
+  // First N tiles get high fetch priority; the rest are lazy
+  const isPriority = index < priorityBudget;
+  const loading: 'eager' | 'lazy' = isPriority ? 'eager' : 'lazy';
 
   return (
     <figure className="mb-6 break-inside-avoid">
@@ -184,22 +214,24 @@ function MasonryTile({
             style={{ transition: 'opacity 280ms ease' }}
           />
 
-          {/* Image in natural flow (gives intrinsic height ASAP) */}
+          {/* Natural layout + responsive sizes */}
           <div className={`reveal ${decoded ? 'reveal-play' : ''}`} style={vars}>
             <Image
               src={src}
               alt={alt}
               width={width}
               height={height}
+              sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
               className="
                 w-full h-auto object-cover
                 transition-transform duration-500 ease-out
                 group-hover:scale-[1.005]
               "
-              placeholder="blur"
-              onLoad={() => setDecoded(true)}
-              loading="eager"       /* make it bullet-proof; dial back later if you want */
-              priority={index < 6}  /* a few above-the-fold as priority */
+              placeholder="empty"           // faster than blur; shimmer covers it
+              onLoadingComplete={() => setDecoded(true)}
+              priority={isPriority}         // adds fetchPriority="high"
+              loading={loading}             // eager for first few, lazy for the rest
+              decoding="async"
             />
             <div className="reveal-mask" aria-hidden="true" />
           </div>
