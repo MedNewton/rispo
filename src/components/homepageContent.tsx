@@ -13,9 +13,6 @@ export default function HomepageContent() {
           <div className="relative flex-1">
             <Image src={image6} alt="Image 3" fill className="object-cover" />
           </div>
-          <h6 className="text-2xl font-light mt-4 self-start">
-            Category 1
-          </h6>
         </div>
       </Link>
       <Link href="/category2" className="flex flex-col h-[550px]">
@@ -23,9 +20,6 @@ export default function HomepageContent() {
           <div className="relative flex-1">
             <Image src={image12} alt="Image 9" fill className="object-cover" />
           </div>
-          <h6 className="text-2xl font-light mt-4 self-start">
-            Category 2
-          </h6>
         </div>
       </Link>
       <Link href="/category3" className="flex flex-col h-[550px]">
@@ -33,9 +27,6 @@ export default function HomepageContent() {
           <div className="relative flex-1">
             <Image src={image2} alt="Image 17" fill className="object-cover" />
           </div>
-          <h6 className="text-2xl font-light mt-4 self-start">
-            Category 3
-          </h6>
         </div>
       </Link>
     </div>

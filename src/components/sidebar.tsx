@@ -2,8 +2,7 @@
 import Link from "next/link";
 import { FaInstagram } from "react-icons/fa6";
 import { FaLinkedin, FaFacebookSquare } from "react-icons/fa";
-
-
+import { AiFillTikTok } from "react-icons/ai";
 
 export default function Sidebar() {
   const year = new Date().getFullYear();
@@ -16,22 +15,16 @@ export default function Sidebar() {
         </Link>
         <nav className="mt-8 space-y-3">
           <Link
-            href="/category1"
+            href="/"
             className="block text-sm text-white hover:text-neutral-400 capitalize transition-colors"
           >
-            category 1
+            home
           </Link>
           <Link
-            href="/category2"
+            href="/works"
             className="block text-sm text-white hover:text-neutral-400 capitalize transition-colors"
           >
-            category 2
-          </Link>
-          <Link
-            href="/category3"
-            className="block text-sm text-white hover:text-neutral-400 capitalize transition-colors"
-          >
-            category 3
+            works
           </Link>
           <Link
             href="/about"
@@ -67,6 +60,13 @@ export default function Sidebar() {
             className="text-white hover:text-neutral-400 transition-colors"
           >
             <FaFacebookSquare size={22} />
+          </Link>
+          <Link
+            href="https://www.tiktok.com/@giordanorispo"
+            target="_blank"
+            className="text-white hover:text-neutral-400 transition-colors"
+          >
+            <AiFillTikTok size={24} />
           </Link>
         </div>
       </div>
