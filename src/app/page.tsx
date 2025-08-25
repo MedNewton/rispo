@@ -3,6 +3,7 @@ import MobileHeader from "../components/mobileHeader";
 import Sidebar from "../components/sidebar";
 import HomepageContent from "../components/homepageContent";
 import MobileFooter from "../components/mobileFooter";
+import LanguageSwitch from "../components/languageSwitch";
 
 export default function HomePage() {
   return (
@@ -12,7 +13,10 @@ export default function HomePage() {
         <div className="hidden md:block">
           <Sidebar />
         </div>
-        <section className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-hide px-4 sm:px-6 md:px-8 py-4 sm:py-6 flex flex-col lg:justify-end">
+        <section className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-hide px-4 sm:px-6 md:px-8 py-4 sm:py-6 flex flex-col lg:justify-between">
+          <div className="flex w-full flex-row justify-end gap-2 min-h-[3rem]">
+            <LanguageSwitch />
+          </div>
           <HomepageContent />
           <div className="mt-8 md:hidden">
             <MobileFooter />

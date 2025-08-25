@@ -3,9 +3,11 @@ import Link from "next/link";
 import { FaInstagram } from "react-icons/fa6";
 import { FaLinkedin, FaFacebookSquare } from "react-icons/fa";
 import { AiFillTikTok } from "react-icons/ai";
+import { useTranslations } from "next-intl";
 
 export default function Sidebar() {
   const year = new Date().getFullYear();
+  const t = useTranslations();
 
   return (
     <aside className="h-[100dvh] w-[320px] shrink-0 px-6 py-7 hidden lg:flex flex-col justify-between overflow-hidden">
@@ -18,25 +20,25 @@ export default function Sidebar() {
             href="/"
             className="block text-sm text-white hover:text-neutral-400 capitalize transition-colors"
           >
-            home
+            {t("home")}
           </Link>
           <Link
             href="/works"
             className="block text-sm text-white hover:text-neutral-400 capitalize transition-colors"
           >
-            works
+            {t("works")}
           </Link>
           <Link
             href="/about"
             className="block text-sm text-white hover:text-neutral-400 capitalize transition-colors"
           >
-            about
+            {t("about")}
           </Link>
           <Link
             href="/contact"
             className="block text-sm text-white hover:text-neutral-400 capitalize transition-colors"
           >
-            contact
+            {t("contact")}
           </Link>
         </nav>
         <div className="flex flex-row items-center gap-2">

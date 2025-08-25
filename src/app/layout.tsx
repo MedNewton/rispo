@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 
 import { type Metadata } from "next";
 import { Poppins } from "next/font/google";
+import { NextIntlClientProvider, useMessages, useLocale } from "next-intl";
 
 export const metadata: Metadata = {
   title: "Giordano Rispo",
@@ -18,9 +19,16 @@ const poppins = Poppins({
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const messages = useMessages();
+  const locale = useLocale();
+
   return (
-    <html lang="en" className={`${poppins.variable}`}>
-      <body>{children}</body>
+    <html lang={locale} className={poppins.variable}>
+      <body>
+        <NextIntlClientProvider messages={messages} locale={locale}>
+          {children}
+        </NextIntlClientProvider>
+      </body>
     </html>
   );
 }
