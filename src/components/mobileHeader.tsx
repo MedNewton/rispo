@@ -9,9 +9,8 @@ const cx = (...c: Array<string | false | undefined>) => c.filter(Boolean).join("
 type NavItem = { label: string; href: string };
 
 const NAV: NavItem[] = [
-  { label: "Category 1", href: "/category1" },
-  { label: "Category 2", href: "/category2" },
-  { label: "Category 3", href: "/category3" },
+  { label: "Home", href: "/" },
+  { label: "Works", href: "/works" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
