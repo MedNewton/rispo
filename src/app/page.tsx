@@ -14,7 +14,7 @@ export default function HomePage() {
           <Sidebar />
         </div>
         <section className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-hide px-4 sm:px-6 md:px-8 py-4 sm:py-6 flex flex-col lg:justify-between">
-          <div className="flex w-full flex-row justify-end gap-2 min-h-[3rem]">
+          <div className="hidden lg:flex w-full flex-row justify-end gap-2 min-h-[3rem]">
             <LanguageSwitch />
           </div>
           <HomepageContent />
