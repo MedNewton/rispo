@@ -3,22 +3,30 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import MobileLanguageSwitch from "./mobileLanguageSwitch";
 
 const cx = (...c: Array<string | false | undefined>) => c.filter(Boolean).join(" ");
 
-type NavItem = { label: string; href: string };
+type NavKey = "home" | "works" | "about" | "contact";
+type NavItem = { key: NavKey; href: string };
 
 const NAV: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Works", href: "/works" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { key: "home", href: "/" },
+  { key: "works", href: "/works" },
+  { key: "about", href: "/about" },
+  { key: "contact", href: "/contact" }
 ];
 
 export default function MobileHeader() {
+  const t = useTranslations(); // uses default namespace from your messages
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+
+  // Close menu on route change
   useEffect(() => setOpen(false), [pathname]);
+
+  // Lock body scroll when menu is open
   useEffect(() => {
     const { style } = document.body;
     const prev = style.overflow;
@@ -27,6 +35,13 @@ export default function MobileHeader() {
       style.overflow = prev;
     };
   }, [open]);
+
+  const isActive = (href: string) => {
+    if (!pathname) return false;
+    return href === "/"
+      ? pathname === "/"
+      : pathname === href || pathname.startsWith(href + "/");
+  };
 
   return (
     <>
@@ -38,26 +53,30 @@ export default function MobileHeader() {
           >
             Giordano Rispo
           </Link>
-          <button
-            type="button"
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            aria-controls="mobile-menu"
-            onClick={() => setOpen((v) => !v)}
-            className="relative inline-flex h-10 w-10 items-center justify-center"
-          >
-            {!open ? (
-              <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden="true">
-                <path d="M3 6h18M3 12h18M3 18h18" stroke="white" strokeWidth="2" />
-              </svg>
-            ) : (
-              <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden="true">
-                <path d="M6 6l12 12M18 6L6 18" stroke="white" strokeWidth="2" />
-              </svg>
-            )}
-          </button>
+          <div className="flex flex-row items-center justify-end gap-2">
+            <MobileLanguageSwitch />
+            <button
+              type="button"
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              onClick={() => setOpen((v) => !v)}
+              className="relative inline-flex h-10 w-10 items-center justify-center"
+            >
+              {!open ? (
+                <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden="true">
+                  <path d="M3 6h18M3 12h18M3 18h18" stroke="white" strokeWidth="2" />
+                </svg>
+              ) : (
+                <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden="true">
+                  <path d="M6 6l12 12M18 6L6 18" stroke="white" strokeWidth="2" />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
       </header>
+
       <div
         id="mobile-menu"
         role="dialog"
@@ -69,8 +88,8 @@ export default function MobileHeader() {
       >
         <nav className="mx-auto max-w-screen-xl px-5 py-8">
           <ul className="space-y-6">
-            {NAV.map(({ label, href }) => {
-              const active = pathname?.startsWith(href);
+            {NAV.map(({ key, href }) => {
+              const active = isActive(href);
               return (
                 <li key={href}>
                   <Link
@@ -87,7 +106,7 @@ export default function MobileHeader() {
                         active ? "opacity-40 pointer-events-none" : "opacity-90 group-hover:opacity-100"
                       )}
                     >
-                      {label}
+                      {t(key)}
                     </span>
                     <svg
                       viewBox="0 0 24 24"
@@ -103,6 +122,8 @@ export default function MobileHeader() {
           </ul>
         </nav>
       </div>
+
+      {/* spacer to offset the fixed header */}
       <div className="md:hidden h-16" />
     </>
   );

@@ -7,14 +7,12 @@ import Sidebar from '@/components/sidebar';
 import MobileFooter from '@/components/mobileFooter';
 import LanguageSwitch from '@/components/languageSwitch';
 
-// ⬇️ Client-only gallery. This prevents the server from evaluating the gallery chunk.
 const WorkContent = dynamic(
   () => import('@/components/workContent').then(m => m.default),
   { ssr: false, loading: () => <SkeletonGrid /> }
 );
 
 function SkeletonGrid() {
-  // simple placeholder: 9 shimmering blocks laid out like your masonry
   const blocks = Array.from({ length: 9 });
   return (
     <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 pt-4 lg:pt-0">
@@ -39,10 +37,7 @@ export default function Works() {
           <div className="w-full flex-row justify-end gap-2 min-h-[3rem] mb-8 hidden lg:flex">
             <LanguageSwitch />
           </div>
-
-          {/* Client-only gallery */}
           <WorkContent />
-
           <div className="mt-8 md:hidden">
             <MobileFooter />
           </div>
