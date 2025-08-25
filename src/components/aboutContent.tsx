@@ -60,12 +60,12 @@ export default function AboutContent() {
   const t = useTranslations();
   return (
     <div className="flex flex-col gap-4 px-2 lg:px-4 pt-2 lg:pt-4">
-      <div className="flex flex-row items-center justify-between gap-4 p-4">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-4 p-4 lg:p-4">
         <h1 className="text-white/90 text-2xl font-medium">
           {t('aboutGiordano')}
         </h1>
-        <Link href="/works" className="text-white/90 hover:text-white/80 transition-colors hover:underline flex flex-row items-center justify-end gap-1">
-          <h6 className="text-sm">
+        <Link href="/works" className="text-white/90 w-fit hover:text-white/80 transition-colors hover:underline flex flex-row items-center justify-end gap-0 lg:gap-2">
+          <h6 className="text-base lg:text-sm w-fit whitespace-nowrap">
             {t('seemyworks')}
           </h6>
           <IoIosArrowRoundForward size={24} className="mt-1" />

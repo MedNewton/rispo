@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 export default function ContactsContent() {
+  const t = useTranslations();
   return (
     <div className="max-w-3xl">
       <h2 className="uppercase tracking-widest text-2xl font-light text-neutral-300">
-        Contact Info
+        {t('contactInfo')}
       </h2>
 
       <hr className="my-6 border-neutral-500/50" />
