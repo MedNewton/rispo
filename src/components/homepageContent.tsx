@@ -1,7 +1,7 @@
 'use client';
 
-import {useEffect, useRef, useState} from 'react';
-import Image, {type StaticImageData} from 'next/image';
+import { useEffect, useRef, useState } from 'react';
+import Image, { type StaticImageData } from 'next/image';
 import Link from 'next/link';
 
 import image2 from '@/assets/images/2.webp';
@@ -36,35 +36,33 @@ function useInViewOnce<T extends Element>(options?: IntersectionObserverInit) {
     return () => obs.disconnect();
   }, [options]);
 
-  return {ref, inView};
+  return { ref, inView };
 }
 
-type CSSVars = React.CSSProperties & {'--d'?: string; '--dur'?: string};
+type CSSVars = React.CSSProperties & { '--d'?: string; '--dur'?: string };
 
 function ClipRevealCard({ href, src, alt, delay }: Card & { delay: number }) {
   const [imgReady, setImgReady] = useState(false);
-  const {ref, inView} = useInViewOnce<HTMLDivElement>({ rootMargin: '0px 0px -10% 0px' });
+  const { ref, inView } = useInViewOnce<HTMLDivElement>({ rootMargin: '0px 0px -10% 0px' });
   const play = inView && imgReady;
 
   const vars: CSSVars = { '--d': `${delay}s`, '--dur': '1s' };
 
   return (
     <div className="flex flex-col h-[550px]">
-      <Link href={href} className="flex flex-col h-[550px]">
-        <div ref={ref} style={vars} className="relative flex-1 overflow-hidden">
-          <div className={`reveal ${play ? 'play' : ''}`}>
-            <Image
-              src={src}
-              alt={alt}
-              fill
-              sizes="(max-width: 768px) 100vw, 33vw"
-              className="object-cover"
-              onLoadingComplete={() => setImgReady(true)}
-              priority={false}
-            />
-          </div>
+      <div ref={ref} style={vars} className="relative flex-1 overflow-hidden">
+        <div className={`reveal ${play ? 'play' : ''}`}>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            className="object-cover"
+            onLoadingComplete={() => setImgReady(true)}
+            priority={false}
+          />
         </div>
-      </Link>
+      </div>
 
       <style jsx>{`
         .reveal {
