@@ -8,15 +8,10 @@ import MobileLanguageSwitch from "./mobileLanguageSwitch";
 
 const cx = (...c: Array<string | false | undefined>) => c.filter(Boolean).join(" ");
 
-type NavKey = "home" | "works" | "about" | "contact";
+type NavKey = "home" | "works" | "about" | "curatorPageTitle" | "contact";
 type NavItem = { key: NavKey; href: string };
 
-const NAV: NavItem[] = [
-  { key: "home", href: "/" },
-  { key: "works", href: "/works" }, // trigger only
-  { key: "about", href: "/about" },
-  { key: "contact", href: "/contact" },
-];
+
 
 type WorksSubItem = Readonly<{ label: string; href: string }>;
 
@@ -73,6 +68,14 @@ export default function MobileHeader() {
 
     setSubmenuHeight(0);
   }, [worksOpen]);
+
+  const NAV: NavItem[] = [
+    { key: "home", href: "/" },
+    { key: "works", href: "/works" }, // trigger only
+    { key: "about", href: "/about" },
+    { key: "curatorPageTitle", href: "/test-curatoriale" },
+    { key: "contact", href: "/contact" },
+  ];
 
   return (
     <>
