@@ -85,6 +85,15 @@ export default function AboutContent() {
         <p>
           {t('aboutPara2')}
         </p>
+        <p>
+          {t('aboutPara3')}
+        </p>
+        <p>
+          {t('aboutPara4')}
+        </p>
+        <p>
+          {t('aboutPara5')}
+        </p>
       </div>
     </div>
   );
