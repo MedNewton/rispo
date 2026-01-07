@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -13,17 +13,29 @@ type NavItem = { key: NavKey; href: string };
 
 const NAV: NavItem[] = [
   { key: "home", href: "/" },
-  { key: "works", href: "/works" },
+  { key: "works", href: "/works" }, // trigger only
   { key: "about", href: "/about" },
-  { key: "contact", href: "/contact" }
+  { key: "contact", href: "/contact" },
 ];
+
+type WorksSubItem = Readonly<{ label: string; href: string }>;
+
 
 export default function MobileHeader() {
   const t = useTranslations();
-  const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => setOpen(false), [pathname]);
+  const [open, setOpen] = useState(false);
+
+  // Submenu: hidden by default
+  const [worksOpen, setWorksOpen] = useState(false);
+  const submenuContentRef = useRef<HTMLDivElement | null>(null);
+  const [submenuHeight, setSubmenuHeight] = useState(0);
+
+  useEffect(() => {
+    setOpen(false);
+    setWorksOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     const { style } = document.body;
@@ -34,12 +46,33 @@ export default function MobileHeader() {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) setWorksOpen(false);
+  }, [open]);
+
   const isActive = (href: string) => {
     if (!pathname) return false;
     return href === "/"
       ? pathname === "/"
       : pathname === href || pathname.startsWith(href + "/");
   };
+
+  // Measure submenu height so closed is always 0px
+  useEffect(() => {
+    const el = submenuContentRef.current;
+    if (!el) return;
+
+    const measure = () => setSubmenuHeight(el.scrollHeight);
+
+    if (worksOpen) {
+      measure();
+      const ro = new ResizeObserver(() => measure());
+      ro.observe(el);
+      return () => ro.disconnect();
+    }
+
+    setSubmenuHeight(0);
+  }, [worksOpen]);
 
   return (
     <>
@@ -51,8 +84,10 @@ export default function MobileHeader() {
           >
             Giordano Rispo
           </Link>
+
           <div className="flex flex-row items-center justify-end gap-2">
             <MobileLanguageSwitch />
+
             <button
               type="button"
               aria-label={open ? "Close menu" : "Open menu"}
@@ -87,7 +122,112 @@ export default function MobileHeader() {
         <nav className="mx-auto max-w-screen-xl px-5 py-8">
           <ul className="space-y-6">
             {NAV.map(({ key, href }) => {
+              if (key === "works") {
+                const worksActive = isActive("/works");
+                const WORKS_SUB: ReadonlyArray<WorksSubItem> = [
+                  { href: '/intimita', label: t('category1Title') },
+                  { href: '/scene-di-strada', label: t('category2Title') },
+                  { href: '/ritratti', label: t('category3Title') },
+                ];
+
+                return (
+                  <li key="works">
+                    {/* Works row */}
+                    <button
+                      type="button"
+                      aria-expanded={worksOpen}
+                      aria-controls="works-submenu"
+                      onClick={() => setWorksOpen((v) => !v)}
+                      className={cx(
+                        "group flex w-full items-center justify-between pb-6 text-left",
+                        "uppercase tracking-[0.2em] text-[15px]",
+                        // IMPORTANT:
+                        // - When closed: show separator under Works.
+                        // - When open: REMOVE separator under Works so submenu attaches directly.
+                        worksOpen ? "border-b-0" : "border-b border-neutral-200/70"
+                      )}
+                    >
+                      <span
+                        className={cx(
+                          "transition-opacity",
+                          worksActive ? "opacity-40" : "opacity-90 group-hover:opacity-100"
+                        )}
+                      >
+                        {t("works")}
+                      </span>
+
+                      {/* Chevron rotation fix: use transform + transition-transform explicitly */}
+                      <svg
+                        viewBox="0 0 24 24"
+                        className={cx(
+                          "h-4 w-4 transform transition-transform duration-200",
+                          worksOpen ? "rotate-90" : "rotate-0"
+                        )}
+                        aria-hidden="true"
+                      >
+                        <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" fill="none" />
+                      </svg>
+                    </button>
+
+                    {/* Inline submenu (pushes About down). True 0px when closed */}
+                    <div
+                      id="works-submenu"
+                      className="overflow-hidden transition-[height] duration-200 ease-out"
+                      style={{ height: worksOpen ? submenuHeight : 0 }}
+                      aria-hidden={!worksOpen}
+                    >
+                      <div
+                        ref={submenuContentRef}
+                        className={cx(
+                          // No "pt" gap that would look like a separator; keep it tight to Works.
+                          "pb-2",
+                          "transition-[opacity,transform] duration-200 ease-out",
+                          worksOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1",
+                          worksOpen ? "pointer-events-auto" : "pointer-events-none"
+                        )}
+                      >
+                        {/* No separators between submenu items, only spacing + left padding */}
+                        <ul className="pl-6">
+                          {WORKS_SUB.map((item, i) => {
+                            const subActive = isActive(item.href);
+                            const isLast = i === WORKS_SUB.length - 1;
+
+                            return (
+                              <li key={item.href}>
+                                <Link
+                                  href={item.href}
+                                  aria-current={subActive ? "page" : undefined}
+                                  className={cx(
+                                    "group flex items-center justify-between",
+                                    "uppercase tracking-[0.2em] text-[15px]"
+                                  )}
+                                >
+                                  <span
+                                    className={cx(
+                                      "transition-opacity",
+                                      subActive ? "opacity-40 pointer-events-none" : "opacity-90 group-hover:opacity-100"
+                                    )}
+                                    style={{
+                                      paddingLeft: "0.5rem",
+                                      ...(isLast ? {} : { paddingBottom: "1.5rem" }),
+                                    }}
+                                  >
+                                    {item.label}
+                                  </span>
+                                </Link>
+                              </li>
+                            );
+                          })}
+
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                );
+              }
+
               const active = isActive(href);
+
               return (
                 <li key={href}>
                   <Link
@@ -120,6 +260,7 @@ export default function MobileHeader() {
           </ul>
         </nav>
       </div>
+
       <div className="md:hidden h-16" />
     </>
   );
