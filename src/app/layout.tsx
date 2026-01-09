@@ -8,7 +8,7 @@ const poppins = Poppins({ weight: ['400','500','600','700'], subsets: ['latin'],
 
 export const metadata: Metadata = {
   title: "Giordano Rispo | Fotografo",
-  description: "Build Here, Grow Anywhere",
+  description: "Naples-born filmmaker and photographer Giordano Rispo (Communication Sciences–Cinema, University of Naples) develops independent short films and documentaries, including the upcoming “Io sono io.” Shaped by on-set experience and masters like Salgado, Schaller, Jodice, and LaChapelle, his work explores relationships, light, and the unseen depth where photography and cinema meet.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
