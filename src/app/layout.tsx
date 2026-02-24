@@ -21,7 +21,11 @@ export default async function RootLayout({children}: {children: React.ReactNode}
   return (
     <html lang={locale} className={poppins.variable}>
       <body>
-        <DisableImageContext message={t('imageContextMessage')} durationMs={1400} />
+        <DisableImageContext
+          message={t('imageContextMessage')}
+          screenshotMessage={t('screenshotBlockedMessage')}
+          durationMs={1400}
+        />
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
