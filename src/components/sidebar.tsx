@@ -259,7 +259,7 @@ export default function Sidebar() {
             baseHref="/works"
             items={[
               { href: '/intimita', label: t('category1Title') },
-              { href: '/scene-di-strada', label: t('category2Title') },
+              { href: '/visions', label: t('category2Title') },
               { href: '/ritratti', label: t('category3Title') },
             ]}
           />
