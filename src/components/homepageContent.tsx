@@ -2,9 +2,9 @@
 
 import { useState, type CSSProperties } from 'react';
 import Image, { type StaticImageData } from 'next/image';
-import image2 from '@/assets/ritratti/2.webp';
+import image2 from '@/assets/ritratti/1.webp';
 import image6 from '@/assets/images/6.webp';
-import image12 from '@/assets/visions/12.webp';
+import image12 from '@/assets/visions/1.webp';
 import { useTranslations } from "next-intl";
 
 const STAGGER = 0.22;
