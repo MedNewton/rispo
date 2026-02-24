@@ -74,7 +74,6 @@ export default function AboutContent() {
         </Link>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 p-4">
-        <ClipRevealBlock src={rispo1} alt="Giordano Rispo portrait 1" delay={START_DELAY + 0 * STAGGER} className="grayscale" />
         <ClipRevealBlock src={rispo2} alt="Giordano Rispo portrait 2" delay={START_DELAY + 1 * STAGGER} className="grayscale" />
       </div>
 
