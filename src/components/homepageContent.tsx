@@ -14,7 +14,7 @@ type Card = { href: string; cardIndex: number; title: string; src: StaticImageDa
 
 const CARDS: Card[] = [
   { href: '/intimita', cardIndex: 1, title: "INTIMITA", src: image6, alt: 'Image 3' },
-  { href: '/scene-di-strada', cardIndex: 2, title: "SCENE DI STRADA", src: image12, alt: 'Image 9' },
+  { href: '/visions', cardIndex: 2, title: "SCENE DI STRADA", src: image12, alt: 'Image 9' },
   { href: '/ritratti', cardIndex: 3, title: "RITRATTI", src: image2, alt: 'Image 17' }
 ];
 
