@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { FaInstagram } from "react-icons/fa6";
 import { FaLinkedin, FaFacebookSquare } from "react-icons/fa";
+import { AiFillTikTok } from 'react-icons/ai';
 
 const MobileFooter = () => {
     const year = new Date().getFullYear();
@@ -21,19 +22,13 @@ const MobileFooter = () => {
                     <FaInstagram size={32} />
                 </Link>
                 <Link
-                    href="https://www.linkedin.com/in/giordano-rispo-0103a1226/"
+                    href="https://www.tiktok.com/@giordanorispo"
                     target="_blank"
                     className="text-white hover:text-neutral-400 transition-colors"
                 >
-                    <FaLinkedin size={30} />
+                    <AiFillTikTok size={32} />
                 </Link>
-                <Link
-                    href="https://www.facebook.com/gio.rispo/"
-                    target="_blank"
-                    className="text-white hover:text-neutral-400 transition-colors"
-                >
-                    <FaFacebookSquare size={30} />
-                </Link>
+
             </div>
         </div>
     );
