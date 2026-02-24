@@ -278,20 +278,6 @@ export default function Sidebar() {
             <FaInstagram size={22} />
           </Link>
           <Link
-            href="https://www.linkedin.com/in/giordano-rispo-0103a1226/"
-            target="_blank"
-            className="text-white hover:text-neutral-400 transition-colors"
-          >
-            <FaLinkedin size={22} />
-          </Link>
-          <Link
-            href="https://www.facebook.com/gio.rispo/"
-            target="_blank"
-            className="text-white hover:text-neutral-400 transition-colors"
-          >
-            <FaFacebookSquare size={22} />
-          </Link>
-          <Link
             href="https://www.tiktok.com/@giordanorispo"
             target="_blank"
             className="text-white hover:text-neutral-400 transition-colors"
