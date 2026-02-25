@@ -2,9 +2,9 @@
 
 import { useState, type CSSProperties } from 'react';
 import Image, { type StaticImageData } from 'next/image';
-import image2 from '@/assets/ritratti/1.webp';
-import image6 from '@/assets/images/6.webp';
-import image12 from '@/assets/visions/1.webp';
+import image2 from '@/assets/images/12.webp';
+import image6 from '@/assets/ritratti/8.webp';
+import image12 from '@/assets/visions/3.webp';
 import { useTranslations } from "next-intl";
 
 const STAGGER = 0.22;
@@ -13,9 +13,9 @@ const START_DELAY = 0.14;
 type Card = { href: string; cardIndex: number; title: string; src: StaticImageData; alt: string };
 
 const CARDS: Card[] = [
-  { href: '/intimita', cardIndex: 1, title: "INTIMITA", src: image6, alt: 'Image 3' },
+  { href: '/ritratti', cardIndex: 3, title: "RITRATTI", src: image2, alt: 'Image 17' },
   { href: '/visions', cardIndex: 2, title: "SCENE DI STRADA", src: image12, alt: 'Image 9' },
-  { href: '/ritratti', cardIndex: 3, title: "RITRATTI", src: image2, alt: 'Image 17' }
+  { href: '/intimita', cardIndex: 1, title: "INTIMITA", src: image6, alt: 'Image 3' },
 ];
 
 type CSSVars = CSSProperties & { '--d'?: string; '--dur'?: string };
