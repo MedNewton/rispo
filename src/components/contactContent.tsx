@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { FaInstagram } from 'react-icons/fa6';
+import { FaLinkedin, FaFacebookSquare } from 'react-icons/fa';
+import { AiFillTikTok } from 'react-icons/ai';
 
 export default function ContactsContent() {
   const t = useTranslations();
@@ -50,6 +53,23 @@ export default function ContactsContent() {
       </section>
 
       <hr className="border-neutral-500/50" />
+
+      <div className="flex flex-row items-center gap-2 pt-4">
+          <Link
+            href="https://www.instagram.com/giordanonadroig"
+            target="_blank"
+            className="text-white hover:text-neutral-400 transition-colors"
+          >
+            <FaInstagram size={22} />
+          </Link>
+          <Link
+            href="https://www.tiktok.com/@giordanorispo"
+            target="_blank"
+            className="text-white hover:text-neutral-400 transition-colors"
+          >
+            <AiFillTikTok size={24} />
+          </Link>
+        </div>
     </div>
   );
 }
