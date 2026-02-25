@@ -13,9 +13,9 @@ const START_DELAY = 0.14;
 type Card = { href: string; cardIndex: number; title: string; src: StaticImageData; alt: string };
 
 const CARDS: Card[] = [
-  { href: '/ritratti', cardIndex: 3, title: "RITRATTI", src: image2, alt: 'Image 17' },
+  { href: '/ritratti', cardIndex: 1, title: "INTIMITA", src: image2, alt: 'Image 17' },
   { href: '/visions', cardIndex: 2, title: "SCENE DI STRADA", src: image12, alt: 'Image 9' },
-  { href: '/intimita', cardIndex: 1, title: "INTIMITA", src: image6, alt: 'Image 3' },
+  { href: '/intimita', cardIndex: 3, title: "RITRATTI", src: image6, alt: 'Image 3' },
 ];
 
 type CSSVars = CSSProperties & { '--d'?: string; '--dur'?: string };
