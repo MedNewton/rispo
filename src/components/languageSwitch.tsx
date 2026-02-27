@@ -27,7 +27,7 @@ export default function LanguageSwitch() {
         onClick={() => pick('en')}
         disabled={pending}
         aria-pressed={current === 'en'}
-        className={`transition-colors focus:outline-none ${
+        className={`transition-colors cursor-pointer focus:outline-none ${
           current === 'en' ? 'text-white' : 'text-white/55 hover:text-white/80'
         } ${pending ? 'opacity-60' : ''}`}
       >
@@ -41,7 +41,7 @@ export default function LanguageSwitch() {
         onClick={() => pick('it')}
         disabled={pending}
         aria-pressed={current === 'it'}
-        className={`transition-colors focus:outline-none ${
+        className={`transition-colors cursor-pointer focus:outline-none ${
           current === 'it' ? 'text-white' : 'text-white/55 hover:text-white/80'
         } ${pending ? 'opacity-60' : ''}`}
       >
