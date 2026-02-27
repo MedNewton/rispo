@@ -43,10 +43,10 @@ export default function ContactsContent() {
         <div className="mt-4 text-sm leading-6 text-neutral-400">
           <p className="mt-2">
             <Link
-              href="mailto:barbara.silbe@ilgiornale.it"
+              href="mailto:barbara.silbe@eyesopen.it"
               className="text-white hover:text-neutral-400 transition-colors underline-offset-2 hover:underline"
             >
-              barbara.silbe@ilgiornale.it
+              barbara.silbe@eyesopen.it
             </Link>
           </p><br />
         </div>
