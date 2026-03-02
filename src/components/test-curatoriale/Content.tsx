@@ -84,6 +84,10 @@ export default function Content() {
         <p>
           {t('curatorPara3')}
         </p>
+        <br />
+        <p>
+          {t('signtature')}
+        </p>
       </div>
     </div>
   );
