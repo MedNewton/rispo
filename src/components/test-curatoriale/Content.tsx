@@ -86,7 +86,21 @@ export default function Content() {
         </p>
         <br />
         <p>
-          {t('signtature')}
+          {t('signtature')}{' '}
+          <Link
+            href="http://theglobalnews.it/"
+            target="_blank"
+            rel="noreferrer"
+            className="text-white/75 transition-colors hover:text-white/80"
+            style={{ textDecoration: 'underline', textUnderlineOffset: '2px' }}
+            ref={(node) => {
+              if (!node) return;
+              node.style.setProperty('text-decoration', 'underline', 'important');
+              node.style.setProperty('text-underline-offset', '2px', 'important');
+            }}
+          >
+            TheGlobalNews.it
+          </Link>
         </p>
       </div>
     </div>
