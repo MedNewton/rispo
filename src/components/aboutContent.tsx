@@ -81,12 +81,12 @@ export default function AboutContent() {
         <p>
           {t('aboutPara2')}
         </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 py-6">
+        <ClipRevealBlock src={rispo2} alt="Giordano Rispo portrait 2" delay={START_DELAY + 1 * STAGGER} className="grayscale" />
+      </div>
         <p>
           {t('aboutPara3')}
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 p-4">
-        <ClipRevealBlock src={rispo2} alt="Giordano Rispo portrait 2" delay={START_DELAY + 1 * STAGGER} className="grayscale" />
-      </div>
         <p>
           {t('aboutPara4')}
         </p>
