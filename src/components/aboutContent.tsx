@@ -73,9 +73,6 @@ export default function AboutContent() {
           <IoIosArrowRoundForward size={24} className="mt-1" />
         </Link>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 p-4">
-        <ClipRevealBlock src={rispo2} alt="Giordano Rispo portrait 2" delay={START_DELAY + 1 * STAGGER} className="grayscale" />
-      </div>
 
       <div className="flex flex-col gap-4 p-4">
         <p>
@@ -87,6 +84,9 @@ export default function AboutContent() {
         <p>
           {t('aboutPara3')}
         </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 p-4">
+        <ClipRevealBlock src={rispo2} alt="Giordano Rispo portrait 2" delay={START_DELAY + 1 * STAGGER} className="grayscale" />
+      </div>
         <p>
           {t('aboutPara4')}
         </p>
