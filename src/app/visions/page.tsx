@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 
+import { useScrollRestore } from '@/hooks/useScrollRestore';
 import MobileHeader from '@/components/mobileHeader';
 import Sidebar from '@/components/sidebar';
 import MobileFooter from '@/components/mobileFooter';
@@ -26,6 +27,7 @@ function SkeletonGrid() {
 }
 
 export default function Works() {
+  const scrollRef = useScrollRestore('visions');
   return (
     <main className="noiseBackground">
       <MobileHeader />
@@ -33,7 +35,7 @@ export default function Works() {
         <div className="hidden md:block">
           <Sidebar />
         </div>
-        <section className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-hide px-4 sm:px-6 md:px-8 py-4 sm:py-6 flex flex-col will-change-transform">
+        <section ref={scrollRef} className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-hide px-4 sm:px-6 md:px-8 py-4 sm:py-6 flex flex-col will-change-transform">
           <div className="w-full flex-row justify-end gap-2 min-h-[3rem] mb-8 hidden lg:flex">
             <LanguageSwitch />
           </div>
