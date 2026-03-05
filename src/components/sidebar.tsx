@@ -258,9 +258,9 @@ export default function Sidebar() {
             label={t('works')}
             baseHref="/works"
             items={[
-              { href: '/intimita', label: t('category1Title') },
-              { href: '/visions', label: t('category2Title') },
               { href: '/ritratti', label: t('category3Title') },
+              { href: '/visions', label: t('category2Title') },
+              { href: '/intimita', label: t('category1Title') },
             ]}
           />
 

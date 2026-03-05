@@ -9,7 +9,7 @@ import MobileFooter from '@/components/mobileFooter';
 import LanguageSwitch from '@/components/languageSwitch';
 
 const Content = dynamic(
-  () => import('@/components/ritratti/Content').then(m => m.default),
+  () => import('@/components/intimita/Content').then(m => m.default),
   { ssr: false, loading: () => <SkeletonGrid /> }
 );
 

@@ -128,9 +128,9 @@ export default function MobileHeader() {
               if (key === "works") {
                 const worksActive = isActive("/works");
                 const WORKS_SUB: ReadonlyArray<WorksSubItem> = [
-                  { href: '/intimita', label: t('category1Title') },
-                  { href: '/scene-di-strada', label: t('category2Title') },
                   { href: '/ritratti', label: t('category3Title') },
+                  { href: '/scene-di-strada', label: t('category2Title') },
+                  { href: '/intimita', label: t('category1Title') },
                 ];
 
                 return (
