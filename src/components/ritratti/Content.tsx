@@ -143,7 +143,7 @@ export default function Content() {
 
   return (
     <div className='flex flex-col items-start justify-start gap-4'>
-      <h1 className='font-bold' style={{fontSize: '3.5rem'}}>{t('category3Title')}</h1>
+      <h1 className='font-bold' style={{fontSize: '3.5rem'}}>{t('category1Title')}</h1>
       <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 [column-fill:_balance] pt-4 lg:pt-0">
       {IMAGES.map(({ src, alt, id }, i) => (
         <MasonryTile
