@@ -29,26 +29,26 @@ import image20 from '@/assets/ritratti/20.webp';
 type Card = { src: StaticImageData; alt: string; id: string };
 
 const IMAGES: Card[] = [
-  { src: image1, alt: 'Image 1', id: '1' },
-  { src: image2, alt: 'Image 2', id: '2' },
-  { src: image3, alt: 'Image 3', id: '3' },
-  { src: image4, alt: 'Image 4', id: '4' },
-  { src: image5, alt: 'Image 5', id: '5' },
-  { src: image6, alt: 'Image 6', id: '6' },
-  { src: image7, alt: 'Image 7', id: '7' },
-  { src: image8, alt: 'Image 8', id: '8' },
-  { src: image9, alt: 'Image 9', id: '9' },
-  { src: image10, alt: 'Image 10', id: '10' },
-  { src: image11, alt: 'Image 11', id: '11' },
-  { src: image12, alt: 'Image 12', id: '12' },
-  { src: image13, alt: 'Image 13', id: '13' },
-  { src: image14, alt: 'Image 14', id: '14' },
-  { src: image15, alt: 'Image 15', id: '15' },
-  { src: image16, alt: 'Image 16', id: '16' },
-  { src: image17, alt: 'Image 17', id: '17' },
-  { src: image18, alt: 'Image 18', id: '18' },
-  { src: image19, alt: 'Image 19', id: '19' },
-  { src: image20, alt: 'Image 20', id: '20' }
+  { src: image1, alt: 'Image 1', id: 'ritratti-1' },
+  { src: image2, alt: 'Image 2', id: 'ritratti-2' },
+  { src: image3, alt: 'Image 3', id: 'ritratti-3' },
+  { src: image4, alt: 'Image 4', id: 'ritratti-4' },
+  { src: image5, alt: 'Image 5', id: 'ritratti-5' },
+  { src: image6, alt: 'Image 6', id: 'ritratti-6' },
+  { src: image7, alt: 'Image 7', id: 'ritratti-7' },
+  { src: image8, alt: 'Image 8', id: 'ritratti-8' },
+  { src: image9, alt: 'Image 9', id: 'ritratti-9' },
+  { src: image10, alt: 'Image 10', id: 'ritratti-10' },
+  { src: image11, alt: 'Image 11', id: 'ritratti-11' },
+  { src: image12, alt: 'Image 12', id: 'ritratti-12' },
+  { src: image13, alt: 'Image 13', id: 'ritratti-13' },
+  { src: image14, alt: 'Image 14', id: 'ritratti-14' },
+  { src: image15, alt: 'Image 15', id: 'ritratti-15' },
+  { src: image16, alt: 'Image 16', id: 'ritratti-16' },
+  { src: image17, alt: 'Image 17', id: 'ritratti-17' },
+  { src: image18, alt: 'Image 18', id: 'ritratti-18' },
+  { src: image19, alt: 'Image 19', id: 'ritratti-19' },
+  { src: image20, alt: 'Image 20', id: 'ritratti-20' }
 ];
 
 function usePriorityBudget(): number {

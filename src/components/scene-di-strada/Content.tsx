@@ -20,17 +20,17 @@ import image11 from '@/assets/visions/11.webp';
 type Card = { src: StaticImageData; alt: string; id: string };
 
 const IMAGES: Card[] = [
-  { src: image1, alt: 'Image 1', id: '1' },
-  { src: image2, alt: 'Image 2', id: '2' },
-  { src: image3, alt: 'Image 3', id: '3' },
-  { src: image4, alt: 'Image 4', id: '4' },
-  { src: image5, alt: 'Image 5', id: '5' },
-  { src: image6, alt: 'Image 6', id: '6' },
-  { src: image7, alt: 'Image 7', id: '7' },
-  { src: image8, alt: 'Image 8', id: '8' },
-  { src: image9, alt: 'Image 9', id: '9' },
-  { src: image10, alt: 'Image 10', id: '10' },
-  { src: image11, alt: 'Image 11', id: '11' },
+  { src: image1, alt: 'Image 1', id: 'visions-1' },
+  { src: image2, alt: 'Image 2', id: 'visions-2' },
+  { src: image3, alt: 'Image 3', id: 'visions-3' },
+  { src: image4, alt: 'Image 4', id: 'visions-4' },
+  { src: image5, alt: 'Image 5', id: 'visions-5' },
+  { src: image6, alt: 'Image 6', id: 'visions-6' },
+  { src: image7, alt: 'Image 7', id: 'visions-7' },
+  { src: image8, alt: 'Image 8', id: 'visions-8' },
+  { src: image9, alt: 'Image 9', id: 'visions-9' },
+  { src: image10, alt: 'Image 10', id: 'visions-10' },
+  { src: image11, alt: 'Image 11', id: 'visions-11' },
 ];
 
 function usePriorityBudget(): number {
