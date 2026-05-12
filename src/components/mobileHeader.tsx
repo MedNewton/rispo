@@ -8,7 +8,7 @@ import MobileLanguageSwitch from "./mobileLanguageSwitch";
 
 const cx = (...c: Array<string | false | undefined>) => c.filter(Boolean).join(" ");
 
-type NavKey = "home" | "works" | "about" | "curatorPageTitle" | "contact";
+type NavKey = "home" | "works" | "exhibitions" | "about" | "curatorPageTitle" | "contact";
 type NavItem = { key: NavKey; href: string };
 
 
@@ -72,6 +72,7 @@ export default function MobileHeader() {
   const NAV: NavItem[] = [
     { key: "home", href: "/" },
     { key: "works", href: "/works" }, // trigger only
+    { key: "exhibitions", href: "/exhibitions" },
     { key: "about", href: "/about" },
     { key: "curatorPageTitle", href: "/test-curatoriale" },
     { key: "contact", href: "/contact" },

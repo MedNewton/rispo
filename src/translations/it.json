@@ -2,6 +2,7 @@
     "home": "Home",
     "works": "Opere",
     "about": "Biografia",
+    "exhibitions": "Mostre",
     "about2": "Cosa dicono di me",
     "contact": "Contatti",
     "en": "Inglese",
@@ -43,5 +44,12 @@
     "formSend": "Invia",
     "formSending": "Invio in corso…",
     "formSuccess": "Messaggio inviato. Grazie!",
-    "formError": "Qualcosa è andato storto. Riprova."
+    "formError": "Qualcosa è andato storto. Riprova.",
+    "exhibition1": "Mostra fotografica personale nella Libreria Luce di Lorenzo Marone.",
+    "exhibition2": "Mostra fotografica «Ombre messe in luce» per il Sottotraccia Festival.",
+    "exhibition3": "Mostra fotografica personale presso Villa Doria d'Angri.",
+    "exhibition4": "Mostra fotografica personale presso il Bikini Beach Club.",
+    "exhibition5": "Mostra fotografica per il Colline Cultura Photo Festival a San Raffaele Alto, Torino.",
+    "exhibition6": "Mostra collettiva di Arte Contenente presso la Galleria Dantebus di Via Margutta.",
+    "exhibition7": "Mostra fotografica personale presso Bottega Immagine di Milano."
 }

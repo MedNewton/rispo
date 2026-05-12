@@ -2,6 +2,7 @@
     "home": "Home",
     "works": "Works",
     "about": "Biography",
+    "exhibitions": "Exhibitions",
     "about2": "About",
     "contact": "Contact",
     "en": "English",
@@ -43,5 +44,12 @@
     "formSend": "Send",
     "formSending": "Sending…",
     "formSuccess": "Message sent. Thank you!",
-    "formError": "Something went wrong. Please try again."
+    "formError": "Something went wrong. Please try again.",
+    "exhibition1": "Solo photography exhibition at Lorenzo Marone's Libreria Luce.",
+    "exhibition2": "Photography exhibition \"Ombre messe in luce\" for the Sottotraccia Festival.",
+    "exhibition3": "Solo photography exhibition at Villa Doria d'Angri.",
+    "exhibition4": "Solo photography exhibition at the Bikini Beach Club.",
+    "exhibition5": "Photography exhibition for the Colline Cultura Photo Festival in San Raffaele Alto, Turin.",
+    "exhibition6": "Group exhibition Arte Contenente at Galleria Dantebus on Via Margutta.",
+    "exhibition7": "Solo photography exhibition at Bottega Immagine in Milan."
 }

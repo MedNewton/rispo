@@ -264,6 +264,7 @@ export default function Sidebar() {
             ]}
           />
 
+          <NavItem href="/exhibitions" label={t('exhibitions')} />
           <NavItem href="/about" label={t('about')} />
           <NavItem href="/curator-note" label={t('about2')} />
           <NavItem href="/contact" label={t('contact')} />
