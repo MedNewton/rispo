@@ -26,8 +26,8 @@ export default function PortfolioItemContent({
     const [loaded, setLoaded] = useState(false);
 
     return (
-        <div className="mx-auto w-full max-w-5xl">
-            <div className="relative w-full pt-8 flex justify-center">
+        <div className="mx-auto w-full max-w-5xl flex-1 flex items-center justify-center">
+            <div className="relative w-full flex justify-center">
                 <Image
                     src={src}
                     alt={alt}
