@@ -9,17 +9,19 @@ export default function HomePage() {
   return (
     <main className="noiseBackground">
       <MobileHeader />
-      <div className="flex w-[100vw] overflow-hidden h-[calc(100dvh-4rem)] md:h-[100dvh]">
-        <div className="hidden md:block">
+      <div className="flex w-[100vw] overflow-hidden h-[calc(100dvh-4rem)] lg:h-[100dvh]">
+        <div className="hidden lg:block">
           <Sidebar />
         </div>
-        <section className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-hide px-4 sm:px-6 md:px-8 py-4 sm:py-6 flex flex-col lg:justify-between">
-          <div className="hidden lg:flex w-full flex-row justify-end gap-2 min-h-[3rem]">
-            <LanguageSwitch />
-          </div>
-          <HomepageContent />
-          <div className="mt-8 md:hidden">
-            <MobileFooter />
+        <section className="flex-1 overflow-y-scroll overflow-x-hidden scrollbar-visible px-4 sm:px-6 md:px-8 py-4 sm:py-6">
+          <div className="flex flex-col min-h-full lg:justify-between">
+            <div className="hidden lg:flex w-full flex-row justify-end gap-2 min-h-[3rem]">
+              <LanguageSwitch />
+            </div>
+            <HomepageContent />
+            <div className="mt-8 lg:hidden">
+              <MobileFooter />
+            </div>
           </div>
         </section>
       </div>

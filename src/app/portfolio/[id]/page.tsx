@@ -133,6 +133,12 @@ const Artworks: Artwork[] = [
   { src: visions11, alt: "Visions 11", id: "visions-11", name: "Visions 11", description: "Artwork description", year: "2021", agency: "Agency 1", creativeDirector: "John Doe", accountDirector: "Jane Smith" },
 ];
 
+function categoryOf(id: string): "ritratti" | "visions" | "intimita" {
+  if (id.startsWith("ritratti-")) return "ritratti";
+  if (id.startsWith("visions-")) return "visions";
+  return "intimita";
+}
+
 export default async function PortfolioItemPage({
     params,
   }: {
@@ -142,16 +148,22 @@ export default async function PortfolioItemPage({
     const item = Artworks.find((a) => a.id === id);
     if (!item) notFound();
 
+    const category = categoryOf(item.id);
+    const siblings = Artworks.filter((a) => categoryOf(a.id) === category);
+    const index = siblings.findIndex((a) => a.id === item.id);
+    const prevId = siblings[(index - 1 + siblings.length) % siblings.length]!.id;
+    const nextId = siblings[(index + 1) % siblings.length]!.id;
+
     return (
       <main className="noiseBackground">
         <MobileHeader />
-        <div className="flex w-[100vw] overflow-hidden h-[calc(100dvh-4rem)] md:h-[100dvh]">
-          <div className="hidden md:block">
+        <div className="flex w-[100vw] overflow-hidden h-[calc(100dvh-4rem)] lg:h-[100dvh]">
+          <div className="hidden lg:block">
             <Sidebar />
           </div>
           <section className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-hide px-4 sm:px-6 md:px-8 py-4 sm:py-6 flex flex-col">
-            <PortfolioItemContent {...item} />
-            <div className="mt-12 md:hidden">
+            <PortfolioItemContent {...item} prevId={prevId} nextId={nextId} />
+            <div className="mt-12 lg:hidden">
               <MobileFooter />
             </div>
           </section>

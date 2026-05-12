@@ -3,7 +3,7 @@
 import { useState, type CSSProperties } from 'react';
 import Image, { type StaticImageData } from 'next/image';
 import image2 from '@/assets/images/12.webp';
-import image6 from '@/assets/ritratti/8.webp';
+import image6 from '@/assets/ritratti/7.webp';
 import image12 from '@/assets/visions/3.webp';
 import { useTranslations } from "next-intl";
 

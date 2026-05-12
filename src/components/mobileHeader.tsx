@@ -79,7 +79,7 @@ export default function MobileHeader() {
 
   return (
     <>
-      <header className="md:hidden fixed inset-x-0 top-0 z-[60] h-16 bg-black backdrop-blur border-b border-neutral-500">
+      <header className="lg:hidden fixed inset-x-0 top-0 z-[60] h-16 bg-black backdrop-blur border-b border-neutral-500">
         <div className="mx-auto flex h-full max-w-screen-xl items-center justify-between px-5">
           <Link
             href="/"
@@ -118,7 +118,7 @@ export default function MobileHeader() {
         role="dialog"
         aria-modal="true"
         className={cx(
-          "md:hidden fixed inset-x-0 top-16 bottom-0 z-[55] bg-black overflow-y-auto transition-transform duration-300 ease-out will-change-transform",
+          "lg:hidden fixed inset-x-0 top-16 bottom-0 z-[55] bg-black overflow-y-auto transition-transform duration-300 ease-out will-change-transform",
           open ? "translate-y-0" : "-translate-y-full"
         )}
       >
@@ -264,7 +264,7 @@ export default function MobileHeader() {
         </nav>
       </div>
 
-      <div className="md:hidden h-16" />
+      <div className="lg:hidden h-16" />
     </>
   );
 }
