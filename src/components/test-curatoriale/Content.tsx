@@ -79,23 +79,7 @@ export default function Content() {
           <p>{t('curatorPara1')}</p>
           <p>{t('curatorPara2')}</p>
           <p>{t('curatorPara3')}</p>
-          <p className="mt-4 text-white/75 italic">
-            {t('signtature')}{' '}
-            <Link
-              href="http://theglobalnews.it/"
-              target="_blank"
-              rel="noreferrer"
-              className="text-white/75 transition-colors hover:text-white/80"
-              style={{ textDecoration: 'underline', textUnderlineOffset: '2px' }}
-              ref={(node) => {
-                if (!node) return;
-                node.style.setProperty('text-decoration', 'underline', 'important');
-                node.style.setProperty('text-underline-offset', '2px', 'important');
-              }}
-            >
-              TheGlobalNews.it
-            </Link>
-          </p>
+          <p className="mt-4 text-white/75 italic">{t('signtature')}</p>
         </section>
 
         <div className="h-px w-full bg-white/15" aria-hidden="true" />

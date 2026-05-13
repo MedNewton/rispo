@@ -2,23 +2,24 @@
 
 import { useTranslations } from 'next-intl';
 
-type Exhibition = { date: string; span: string };
+type ExhibitionType = 'Solo' | 'Group' | 'Festival';
+type Exhibition = { date: string; type: ExhibitionType };
 
 const EXHIBITIONS: Exhibition[] = [
-  { date: '06/06/2025 — 15/06/2025', span: 'sm:col-span-2 lg:col-span-2' },
-  { date: '29/08/2025 — 31/08/2025', span: 'sm:col-span-1 lg:col-span-1' },
-  { date: '17/07/2025 — 19/07/2025', span: 'sm:col-span-1 lg:col-span-1' },
-  { date: '03/08/2025',              span: 'sm:col-span-2 lg:col-span-2' },
-  { date: '11/10/2025 — 19/10/2025', span: 'sm:col-span-2 lg:col-span-2' },
-  { date: '05/04/2026 — 29/04/2026', span: 'sm:col-span-1 lg:col-span-1' },
-  { date: '21/05/2026 — 28/05/2026', span: 'sm:col-span-2 lg:col-span-3' },
+  { date: '06/06/2025 — 15/06/2025', type: 'Solo' },
+  { date: '29/08/2025 — 31/08/2025', type: 'Festival' },
+  { date: '17/07/2025 — 19/07/2025', type: 'Solo' },
+  { date: '03/08/2025',              type: 'Solo' },
+  { date: '11/10/2025 — 19/10/2025', type: 'Festival' },
+  { date: '05/04/2026 — 29/04/2026', type: 'Group' },
+  { date: '21/05/2026 — 28/05/2026', type: 'Solo' },
 ];
 
 export default function ExhibitionsContent() {
   const t = useTranslations();
   return (
     <section className="pt-8 lg:pt-0">
-      <div className="flex items-end justify-between mb-8">
+      <div className="flex items-end justify-between mb-10">
         <h2 className="text-2xl lg:text-3xl font-bold tracking-tight">
           {t('exhibitions')}
         </h2>
@@ -27,39 +28,44 @@ export default function ExhibitionsContent() {
         </span>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5 auto-rows-fr">
+      <ol className="flex flex-col">
         {EXHIBITIONS.map((ex, i) => {
           const num = i + 1;
+          const title = t(`exhibition${num}Title`);
+          const location = t(`exhibition${num}Location`);
+          const typeLabel = t(`exhibitionType${ex.type}`);
+
           return (
-            <article
+            <li
               key={num}
-              className={`group relative flex flex-col ${ex.span} min-h-[180px] rounded-lg border border-white/10 bg-gradient-to-br from-white/[0.06] via-white/[0.02] to-transparent backdrop-blur-[2px] p-6 transition-all duration-300 ease-out hover:border-white/30 hover:from-white/[0.09] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-12px_rgba(255,255,255,0.15)]`}
+              className="group relative grid grid-cols-[auto_1fr] sm:grid-cols-[200px_1fr] gap-y-2 gap-x-6 py-6 border-t border-white/10 last:border-b transition-colors hover:bg-white/[0.02]"
             >
-              <header className="flex items-center justify-between text-[10px] uppercase tracking-[0.25em] text-white/45">
-                <span className="font-medium text-white/70">
+              <div className="flex flex-col gap-1 col-span-2 sm:col-span-1">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-white/40">
                   N° {String(num).padStart(2, '0')}
                 </span>
-                <span className="whitespace-nowrap tabular-nums">
+                <span className="text-sm tabular-nums text-white/80">
                   {ex.date}
                 </span>
-              </header>
+              </div>
 
-              <div className="mt-3 mb-5 h-px w-full bg-gradient-to-r from-white/20 via-white/10 to-transparent" />
-
-              <p className="flex-1 flex items-center justify-center text-center text-base lg:text-lg leading-relaxed text-white/90 font-light italic">
-                {t(`exhibition${num}`)}
-              </p>
-
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute bottom-3 right-4 text-white/20 group-hover:text-white/50 transition-colors text-base"
-              >
-                ↗
-              </span>
-            </article>
+              <div className="flex flex-col gap-1">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-white/50">
+                  {typeLabel}
+                </span>
+                {title ? (
+                  <h3 className="text-base lg:text-lg italic text-white/95 leading-snug">
+                    “{title}”
+                  </h3>
+                ) : null}
+                <p className="text-sm lg:text-base text-white/75 leading-snug">
+                  {location}
+                </p>
+              </div>
+            </li>
           );
         })}
-      </div>
+      </ol>
     </section>
   );
 }
